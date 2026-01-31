@@ -1,0 +1,265 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "WG Bewerbungsformular": {
+      "main": [
+        [
+          {
+            "node": "Gmail Senden",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-11-26T08:37:45.088Z",
+  "id": "0iqOnpJF1NToEpjl",
+  "isArchived": true,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "WG Vermietung Formular",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Mieterselbstauskunft - WG Vermietung",
+        "formDescription": "Bitte füllen Sie das Formular vollständig aus und laden Sie die geforderten Nachweise hoch.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name, Vorname",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Geburtsdatum",
+              "fieldType": "date",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Geburtsort",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Staatsangehörigkeit",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Familienstand",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Anschrift (Straße, Hausnummer, PLZ, Ort)",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Telefon",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "E-Mail",
+              "fieldType": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Ausweisart (z.B. Reisepass, Personalausweis)",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Ausstellende Behörde",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Ausweis (Vorderseite)",
+              "fieldType": "file",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Seit wann wohnhaft an aktueller Adresse?",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Grund für Auszug",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Bisherige Warmmiete (€)",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Arbeitgeber",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Beschäftigungsart",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Seit wann beschäftigt?",
+              "fieldType": "date",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Probezeit?",
+              "fieldType": "radio",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Ja"
+                  },
+                  {
+                    "option": "Nein"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Monatliches Nettoeinkommen (€)",
+              "fieldType": "number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "3 aktuelle Gehaltsnachweise",
+              "fieldType": "file",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Gibt es Mietrückstände?",
+              "fieldType": "radio",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Ja"
+                  },
+                  {
+                    "option": "Nein"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Raucher / Nichtraucher",
+              "fieldType": "radio",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Ja"
+                  },
+                  {
+                    "option": "Nein"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Haustiere",
+              "fieldType": "radio",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Ja"
+                  },
+                  {
+                    "option": "Nein"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Schufa-Auskunft (max. 3 Monate alt)",
+              "fieldType": "file",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Mietschuldenfreiheitsbescheinigung (oder Kontoauszüge)",
+              "fieldType": "file"
+            },
+            {
+              "fieldLabel": "Falls Student: Bürgschaft + Gehaltsnachweis Bürge",
+              "fieldType": "file"
+            },
+            {
+              "fieldLabel": "Nachweis Haftpflicht (Optional)",
+              "fieldType": "file"
+            },
+            {
+              "fieldLabel": "Ich bestätige, dass alle Angaben wahrheitsgemäß sind.",
+              "fieldType": "checkbox",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Ja"
+                  }
+                ]
+              },
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.3,
+      "position": [
+        80,
+        112
+      ],
+      "id": "f797b2ca-6175-4bba-b13a-f5e5441f2aa8",
+      "name": "WG Bewerbungsformular",
+      "webhookId": "e2c74da1-e140-4184-a1e4-843e1ec47cff"
+    },
+    {
+      "parameters": {
+        "sendTo": "julian.flieter@gmail.com",
+        "subject": "=Neue WG-Bewerbung: {{ $json['Name, Vorname'] }} ",
+        "message": "=Neue Bewerbung von {{ $json['Name, Vorname'] }}",
+        "options": {}
+      },
+      "id": "1ffbc82b-ae48-4a58-a83d-562b5598a6db",
+      "name": "Gmail Senden",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        368,
+        112
+      ],
+      "webhookId": "54df777a-577c-4582-bbe3-1947e93ad78a",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "fz8kK6pki3f2XESl",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup",
+  "repo_owner": "nailujf7",
+  "repo_path": "nailujf7/n8n-backup/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "updatedAt": "2025-11-26T08:37:45.093Z",
+      "createdAt": "2025-11-26T08:37:45.093Z",
+      "role": "workflow:owner",
+      "workflowId": "0iqOnpJF1NToEpjl",
+      "projectId": "JNbAc1n2ZHXAEEkk"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-11-29T18:41:04.000Z",
+  "versionId": "8fa8b3aa-d38d-40ab-820f-be3acb24fcc3"
+}
