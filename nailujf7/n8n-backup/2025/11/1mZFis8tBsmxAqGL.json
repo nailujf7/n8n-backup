@@ -1,0 +1,382 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Extract Audio",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract Audio": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk1": {
+      "main": [
+        [
+          {
+            "node": "TS Audio1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Read/Write Files from Disk",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read/Write Files from Disk": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "TS Audio1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Message a model1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-11-20T09:58:56.040Z",
+  "id": "1mZFis8tBsmxAqGL",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Transcribe video",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f68f8557-d3cf-43af-a1c3-8ab0f6184a19",
+              "name": "path_to_folder",
+              "value": "/shared",
+              "type": "string"
+            },
+            {
+              "id": "3dfafd82-b57a-42bd-a12a-71a4b9c1544c",
+              "name": "whisper_url",
+              "value": "http://148.230.110.33:9600",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1040,
+        944
+      ],
+      "id": "c7863d67-ba88-4679-8aa7-b75bd40c9e41",
+      "name": "Settings"
+    },
+    {
+      "parameters": {
+        "command": "=FOLDER=\"{{ $('Settings').item.json.path_to_folder }}\"\n\n# Extract audio using ffmpeg from input.mp4 and save as audio.mp3\nffmpeg -y -i \"$FOLDER/input.mp4\" -q:a 0 -map a \"$FOLDER/audio.mp3\""
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1264,
+        944
+      ],
+      "id": "ba24c441-2324-4b46-9bf6-ad94d190d617",
+      "name": "Extract Audio"
+    },
+    {
+      "parameters": {
+        "fileSelector": "={{ $('Settings').item.json.path_to_folder }}/audio.mp3",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        1488,
+        944
+      ],
+      "id": "2fa80c57-5dc6-444c-972d-6470bf387ee4",
+      "name": "Read/Write Files from Disk1"
+    },
+    {
+      "parameters": {
+        "formTitle": "Add subtitles to video",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "video",
+              "fieldType": "file",
+              "multipleFiles": false,
+              "requiredField": true
+            }
+          ]
+        },
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        592,
+        944
+      ],
+      "id": "ec0a1e90-f14e-46f0-8a84-b94d2b3ebbda",
+      "name": "On form submission",
+      "webhookId": "ee9f903d-0ddb-41ad-a45d-ebc180c30ab0"
+    },
+    {
+      "parameters": {
+        "operation": "write",
+        "fileName": "=/shared/input.mp4",
+        "dataPropertyName": "=video",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.readWriteFile",
+      "typeVersion": 1,
+      "position": [
+        816,
+        944
+      ],
+      "id": "60031e69-8b3f-4659-ab6a-988d0990cff8",
+      "name": "Read/Write Files from Disk"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Settings').item.json.whisper_url }}/asr?encode=true&task=transcribe&vad_filter=false&word_timestamps=true&output=json",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "audio_file",
+              "inputDataFieldName": "data"
+            },
+            {
+              "name": "word_timestamps",
+              "value": "true"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1712,
+        944
+      ],
+      "id": "60ce7fd5-cb50-42bb-beba-41fd85cfc208",
+      "name": "TS Audio1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "44d0bbf8-f7b5-4709-9e3b-367d20f53acb",
+              "name": "data",
+              "value": "={{ JSON.parse($json.data).text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1920,
+        944
+      ],
+      "id": "244b5dbe-89a5-4df7-8765-ce3688d72db0",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=Übersetze den Text auf Deutsch und optimiere ihn, damit man den Text als Voice Over Skript für ein Video verwenden kann:\n\n {{ $json.data }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2,
+      "position": [
+        2128,
+        944
+      ],
+      "id": "ad6cbae7-ff4d-4697-bbc7-485704532585",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": "k3iFEjoWomM3j55O",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "44d0bbf8-f7b5-4709-9e3b-367d20f53acb",
+              "name": "data",
+              "value": "={{ $json.output[0].content[0].text }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2464,
+        976
+      ],
+      "id": "35085ac6-a8c5-4e2d-8a74-780234966848",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=„Bitte verwandle den folgenden Fließtext in ein natürlich klingendes, leicht verständliches Produkt-Vorstellungsskript.\nFormuliere so, als würde eine echte Person das Produkt in einem kurzen Social-Media-Video präsentieren: freundlich, authentisch, klar und ohne unnötige Füllwörter.\n\nDer Text:\n{{ $json.data }}\n"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2,
+      "position": [
+        2608,
+        1104
+      ],
+      "id": "682a190b-7622-485a-beb2-49d8927a2ab4",
+      "name": "Message a model1",
+      "credentials": {
+        "openAiApi": {
+          "id": "k3iFEjoWomM3j55O",
+          "name": "OpenAi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup",
+  "repo_owner": "nailujf7",
+  "repo_path": "nailujf7/n8n-backup/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "updatedAt": "2025-11-20T09:58:56.206Z",
+      "createdAt": "2025-11-20T09:58:56.206Z",
+      "role": "workflow:owner",
+      "workflowId": "1mZFis8tBsmxAqGL",
+      "projectId": "JNbAc1n2ZHXAEEkk"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-11-24T07:57:54.000Z",
+  "versionId": "7b5b8a50-e12c-4767-a716-8b97e2674be9"
+}
