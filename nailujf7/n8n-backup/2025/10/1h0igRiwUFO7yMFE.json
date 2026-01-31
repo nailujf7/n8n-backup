@@ -1,0 +1,515 @@
+{
+  "active": true,
+  "activeVersion": {
+    "updatedAt": "2025-12-18T19:32:08.725Z",
+    "createdAt": "2025-12-18T19:32:08.725Z",
+    "versionId": "2b47c9ee-aa07-4569-9465-a6db8f28477f",
+    "workflowId": "1h0igRiwUFO7yMFE",
+    "nodes": [
+      {
+        "parameters": {
+          "inputSource": "passthrough"
+        },
+        "type": "n8n-nodes-base.executeWorkflowTrigger",
+        "typeVersion": 1.1,
+        "position": [
+          0,
+          0
+        ],
+        "id": "415261e6-0ccb-46b6-b673-dc590da35e56",
+        "name": "When Executed by Another Workflow"
+      },
+      {
+        "parameters": {
+          "content": "# Peter Preisliste = AGENT",
+          "height": 700,
+          "width": 540,
+          "color": 3
+        },
+        "type": "n8n-nodes-base.stickyNote",
+        "typeVersion": 1,
+        "position": [
+          160,
+          -304
+        ],
+        "id": "4bd22f90-8108-45d5-9b7d-9c1e67419696",
+        "name": "Sticky Note"
+      },
+      {
+        "parameters": {
+          "promptType": "define",
+          "text": "={{ $json.message_join }}",
+          "options": {
+            "systemMessage": "💬 Peter Preislisten-Agent (Material & Handwerk, mit Think-Fallback)\n\nDu bist Peter, ein intelligenter Preislisten-Assistent.\nDu arbeitest mit zwei Preislisten in Google Sheets:\neine für Materialpreise und eine für Handwerkerleistungen.\nDeine Hauptaufgabe ist es, Preise zu suchen, zu vergleichen und Durchschnittswerte zu berechnen.\nWenn kein Preis in der Datenbank gefunden wird, nutzt du dein Think-Tool, um auf Basis logischer Marktkenntnisse und ähnlicher Einträge einen geschätzten Durchschnittspreis zu ermitteln.\n\n📘 Tabellenstruktur\n\nTabelle 1 – Materialien\n\nArtikel | Einheit | Preis (€) | Bemerkung\n\n\nTabelle 2 – Handwerker / Gewerke\n\nGewerk | Einheit | Preis (€) | Bemerkung\n\n⚙️ Deine Aufgaben\n1️⃣ Preise finden\n\nSuche den passenden Artikel oder das passende Gewerk anhand der Anfrage.\nBeispiele:\n\n„Teppichboden Standard“\n\n„Innenputz Gips“\n\n„Elektriker Meister“\n\n„Bodenleger Geselle“\n\nSuche case-insensitiv (Groß-/Kleinschreibung egal).\n\nWenn du mehrere Treffer findest, berechne den arithmetischen Mittelwert aller Preise.\n\nRunde auf zwei Nachkommastellen.\n\nGib eine einzige Zahl als Preis zurück (keine Range).\n\n2️⃣ Einheit und Kategorie bestimmen\n\nGib immer die Einheit an (z. B. m², Stück, Std, m³, kg …).\n\nGib auch an, ob der Preis aus der Materialliste oder der Handwerkerliste stammt.\n\n3️⃣ Kein Preis gefunden → Think-Fallback\n\nWenn kein passender Preis in den Preislisten gefunden wird,\nführe folgende Logik aus:\n\n✅ Nutze dein Think-Tool, um auf Grundlage ähnlicher Begriffe, Kategorien oder Erfahrungswerte einen plausiblen Schätzwert zu erzeugen.\n\nDas Think-Tool darf eigene Überlegungen anstellen wie:\n\nMarktübliche Preisbereiche ähnlicher Materialien oder Gewerke\n\nKombinationen aus verwandten Begriffen (z. B. „Farbe“ → „Dispersionsfarbe Standard“)\n\nPlausible Schätzung mit Begründung\n\n🧩 Workflow-Logik\nGET Preise Material  → falls Treffer → berechne Durchschnitt  \nGET Preise Handwerker → falls Treffer → berechne Durchschnitt  \nwenn kein Treffer → Think-Tool aktivieren → Schätzpreis erzeugen  \n\n📤 Rückgabeformat (immer als JSON)\n\nBeispiel Material:\n\n{\n  \"status\": \"success\",\n  \"typ\": \"Material\",\n  \"begriff\": \"Teppichboden Standard\",\n  \"einheit\": \"m²\",\n  \"preis_durchschnitt\": 25.00,\n  \"quelle\": \"Materialpreisliste\",\n  \"hinweis\": \"Durchschnitt aus 3 Preisstufen (günstig, mittel, teuer)\"\n}\n\n\nBeispiel Handwerker:\n\n{\n  \"status\": \"success\",\n  \"typ\": \"Handwerker\",\n  \"gewerk\": \"Maler / Lackierer (Meister)\",\n  \"einheit\": \"Std\",\n  \"preis_durchschnitt\": 57.50,\n  \"quelle\": \"Handwerkerpreisliste\",\n  \"hinweis\": \"Eintrag direkt aus Tabelle gefunden\"\n}\n\n\nBeispiel Think-Fallback (wenn kein Preis vorhanden):\n\n{\n  \"status\": \"estimated\",\n  \"typ\": \"Material\",\n  \"begriff\": \"Spezialputz Außenwand\",\n  \"einheit\": \"m²\",\n  \"preis_schaetzung\": 32.00,\n  \"quelle\": \"Think-Tool (geschätzter Marktpreis)\",\n  \"hinweis\": \"Kein Eintrag in Preisliste – Wert basiert auf ähnlichen Materialien (Lehmputz, Strukturputz)\"\n}\n\n🧩 Verfügbare Tools\n\nGET Preise Material → liest alle Zeilen aus der Materialtabelle\n\nGET Preise Handwerker → liest alle Zeilen aus der Handwerkerliste\n\nFILTER → sucht Begriffe oder Kategorien nach Stichwort\n\nBERECHNE Durchschnitt → Mittelwert aller Treffer\n\nTHINK (Fallback) → schätzt realistischen Preis, wenn kein Eintrag existiert\n\nSTRUCTURE Ergebnis → gibt immer JSON-Antwort im definierten Format aus"
+          }
+        },
+        "id": "b082dd4d-01a0-4607-bea9-b68075e272f7",
+        "name": "Preislisten Agent1",
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "typeVersion": 1.6,
+        "position": [
+          288,
+          -128
+        ],
+        "onError": "continueErrorOutput"
+      },
+      {
+        "parameters": {
+          "name": "preislisten_agent",
+          "description": "Call this tool for any calendar action.",
+          "workflowId": {
+            "__rl": true,
+            "value": "0NtlJ41IozGhtFa6",
+            "mode": "list",
+            "cachedResultName": "🤖Calendar Agent"
+          },
+          "workflowInputs": {
+            "mappingMode": "defineBelow",
+            "value": {},
+            "matchingColumns": [],
+            "schema": [],
+            "attemptToConvertTypes": false,
+            "convertFieldsToString": false
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+        "typeVersion": 2,
+        "position": [
+          592,
+          -288
+        ],
+        "id": "495e199e-1239-4409-bae7-c4d7317ecd82",
+        "name": "Preislisten Agent"
+      },
+      {
+        "parameters": {
+          "model": {
+            "__rl": true,
+            "value": "gpt-4.1-mini",
+            "mode": "list",
+            "cachedResultName": "gpt-4.1-mini"
+          },
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+        "typeVersion": 1.2,
+        "position": [
+          288,
+          16
+        ],
+        "id": "314fa222-989e-4bfe-9b01-ab2807d93fac",
+        "name": "4.o-mini1",
+        "credentials": {
+          "openAiApi": {
+            "id": "k3iFEjoWomM3j55O",
+            "name": "OpenAi account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "documentId": {
+            "__rl": true,
+            "value": "1QmwgdSO9S-uGUm6SkF3DGxS8T5oKi9OOsWh5yUETfKc",
+            "mode": "list",
+            "cachedResultName": "Preise Handwerker & Material",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QmwgdSO9S-uGUm6SkF3DGxS8T5oKi9OOsWh5yUETfKc/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": "gid=0",
+            "mode": "list",
+            "cachedResultName": "Material 1.0",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QmwgdSO9S-uGUm6SkF3DGxS8T5oKi9OOsWh5yUETfKc/edit#gid=0"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleSheetsTool",
+        "typeVersion": 4.6,
+        "position": [
+          464,
+          240
+        ],
+        "id": "fa1b6d82-2f01-43bf-aac5-82193c7d4096",
+        "name": "GET Preise Material",
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "O6QTbckrojFQLh4r",
+            "name": "Google Sheets account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "documentId": {
+            "__rl": true,
+            "value": "1QmwgdSO9S-uGUm6SkF3DGxS8T5oKi9OOsWh5yUETfKc",
+            "mode": "list",
+            "cachedResultName": "Preise Handwerker & Material",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QmwgdSO9S-uGUm6SkF3DGxS8T5oKi9OOsWh5yUETfKc/edit?usp=drivesdk"
+          },
+          "sheetName": {
+            "__rl": true,
+            "value": 515563784,
+            "mode": "list",
+            "cachedResultName": "Stundenstätze",
+            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QmwgdSO9S-uGUm6SkF3DGxS8T5oKi9OOsWh5yUETfKc/edit#gid=515563784"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleSheetsTool",
+        "typeVersion": 4.6,
+        "position": [
+          592,
+          240
+        ],
+        "id": "0ff9a6aa-fec5-4a8a-b9ea-d26d53937bec",
+        "name": "GET Preise Handwerker",
+        "credentials": {
+          "googleSheetsOAuth2Api": {
+            "id": "O6QTbckrojFQLh4r",
+            "name": "Google Sheets account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "description": "Dieses Tool hilft der KI, fehlende Preisangaben zu ergänzen, indem es einen realistischen Durchschnittspreis berechnet.\n\nWenn ein angefragtes Produkt, Material oder eine Dienstleistung nicht in den vorhandenen Preislisten gefunden wird\n(z. B. in den Google-Sheets „Preise Material“ oder „Preise Handwerker“), soll das Think-Tool wie folgt vorgehen:\n\n1. Analysiere, um welche Art von Produkt oder Gewerk es sich handelt \n   (z. B. Farbe, Putz, Fenster, Elektriker, Maler, Reinigung, etc.).\n2. Ermittle typische Marktpreise anhand allgemein zugänglicher Quellen \n   (Baumarktpreise, Online-Shops, Handwerks-Portale, Branchen-Durchschnittswerte).\n3. Berechne daraus einen **konkreten Durchschnittspreis** — **eine einzelne Zahl**.\n   Beispiel:\n   - „Schwarze Dispersionsfarbe, Durchschnittspreis 5,60 € / m²“\n   - „Maler (Geselle), üblicher Stundenlohn 41,00 € / h“\n4. Gib den Preis mit Einheit zurück (z. B. „€/m²“ oder „€/h“) und füge eine kurze Begründung hinzu, wie der Wert ermittelt wurde \n   (z. B. „basierend auf typischen Marktwerten aus 2025“).\n5. Keine Preisspannen, sondern nur **eine Zahl**, die den arithmetischen Mittelwert repräsentiert.\n\nZiel: Auch wenn kein exakter Eintrag in der Datenbank vorhanden ist, soll das Tool einen plausiblen, kalkulierbaren Durchschnittspreis liefern, der realistisch im aktuellen Marktumfeld liegt.\n"
+        },
+        "type": "@n8n/n8n-nodes-langchain.toolThink",
+        "typeVersion": 1.1,
+        "position": [
+          240,
+          224
+        ],
+        "id": "82bf3393-a699-4862-9585-230e4e7f8fc3",
+        "name": "Think"
+      }
+    ],
+    "connections": {
+      "4.o-mini1": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "Preislisten Agent1",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "GET Preise Material": {
+        "ai_tool": [
+          [
+            {
+              "node": "Preislisten Agent1",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "GET Preise Handwerker": {
+        "ai_tool": [
+          [
+            {
+              "node": "Preislisten Agent1",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Think": {
+        "ai_tool": [
+          [
+            {
+              "node": "Preislisten Agent1",
+              "type": "ai_tool",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "When Executed by Another Workflow": {
+        "main": [
+          [
+            {
+              "node": "Preislisten Agent1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "system migration",
+    "name": null,
+    "description": null
+  },
+  "activeVersionId": "2b47c9ee-aa07-4569-9465-a6db8f28477f",
+  "connections": {
+    "4.o-mini1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Preislisten Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET Preise Material": {
+      "ai_tool": [
+        [
+          {
+            "node": "Preislisten Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GET Preise Handwerker": {
+      "ai_tool": [
+        [
+          {
+            "node": "Preislisten Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Think": {
+      "ai_tool": [
+        [
+          {
+            "node": "Preislisten Agent1",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Preislisten Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-27T18:03:57.040Z",
+  "id": "1h0igRiwUFO7yMFE",
+  "isArchived": false,
+  "meta": null,
+  "name": "Sub - Preisliste KI Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "415261e6-0ccb-46b6-b673-dc590da35e56",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "content": "# Peter Preisliste = AGENT",
+        "height": 700,
+        "width": 540,
+        "color": 3
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        160,
+        -304
+      ],
+      "id": "4bd22f90-8108-45d5-9b7d-9c1e67419696",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message_join }}",
+        "options": {
+          "systemMessage": "💬 Peter Preislisten-Agent (Material & Handwerk, mit Think-Fallback)\n\nDu bist Peter, ein intelligenter Preislisten-Assistent.\nDu arbeitest mit zwei Preislisten in Google Sheets:\neine für Materialpreise und eine für Handwerkerleistungen.\nDeine Hauptaufgabe ist es, Preise zu suchen, zu vergleichen und Durchschnittswerte zu berechnen.\nWenn kein Preis in der Datenbank gefunden wird, nutzt du dein Think-Tool, um auf Basis logischer Marktkenntnisse und ähnlicher Einträge einen geschätzten Durchschnittspreis zu ermitteln.\n\n📘 Tabellenstruktur\n\nTabelle 1 – Materialien\n\nArtikel | Einheit | Preis (€) | Bemerkung\n\n\nTabelle 2 – Handwerker / Gewerke\n\nGewerk | Einheit | Preis (€) | Bemerkung\n\n⚙️ Deine Aufgaben\n1️⃣ Preise finden\n\nSuche den passenden Artikel oder das passende Gewerk anhand der Anfrage.\nBeispiele:\n\n„Teppichboden Standard“\n\n„Innenputz Gips“\n\n„Elektriker Meister“\n\n„Bodenleger Geselle“\n\nSuche case-insensitiv (Groß-/Kleinschreibung egal).\n\nWenn du mehrere Treffer findest, berechne den arithmetischen Mittelwert aller Preise.\n\nRunde auf zwei Nachkommastellen.\n\nGib eine einzige Zahl als Preis zurück (keine Range).\n\n2️⃣ Einheit und Kategorie bestimmen\n\nGib immer die Einheit an (z. B. m², Stück, Std, m³, kg …).\n\nGib auch an, ob der Preis aus der Materialliste oder der Handwerkerliste stammt.\n\n3️⃣ Kein Preis gefunden → Think-Fallback\n\nWenn kein passender Preis in den Preislisten gefunden wird,\nführe folgende Logik aus:\n\n✅ Nutze dein Think-Tool, um auf Grundlage ähnlicher Begriffe, Kategorien oder Erfahrungswerte einen plausiblen Schätzwert zu erzeugen.\n\nDas Think-Tool darf eigene Überlegungen anstellen wie:\n\nMarktübliche Preisbereiche ähnlicher Materialien oder Gewerke\n\nKombinationen aus verwandten Begriffen (z. B. „Farbe“ → „Dispersionsfarbe Standard“)\n\nPlausible Schätzung mit Begründung\n\n🧩 Workflow-Logik\nGET Preise Material  → falls Treffer → berechne Durchschnitt  \nGET Preise Handwerker → falls Treffer → berechne Durchschnitt  \nwenn kein Treffer → Think-Tool aktivieren → Schätzpreis erzeugen  \n\n📤 Rückgabeformat (immer als JSON)\n\nBeispiel Material:\n\n{\n  \"status\": \"success\",\n  \"typ\": \"Material\",\n  \"begriff\": \"Teppichboden Standard\",\n  \"einheit\": \"m²\",\n  \"preis_durchschnitt\": 25.00,\n  \"quelle\": \"Materialpreisliste\",\n  \"hinweis\": \"Durchschnitt aus 3 Preisstufen (günstig, mittel, teuer)\"\n}\n\n\nBeispiel Handwerker:\n\n{\n  \"status\": \"success\",\n  \"typ\": \"Handwerker\",\n  \"gewerk\": \"Maler / Lackierer (Meister)\",\n  \"einheit\": \"Std\",\n  \"preis_durchschnitt\": 57.50,\n  \"quelle\": \"Handwerkerpreisliste\",\n  \"hinweis\": \"Eintrag direkt aus Tabelle gefunden\"\n}\n\n\nBeispiel Think-Fallback (wenn kein Preis vorhanden):\n\n{\n  \"status\": \"estimated\",\n  \"typ\": \"Material\",\n  \"begriff\": \"Spezialputz Außenwand\",\n  \"einheit\": \"m²\",\n  \"preis_schaetzung\": 32.00,\n  \"quelle\": \"Think-Tool (geschätzter Marktpreis)\",\n  \"hinweis\": \"Kein Eintrag in Preisliste – Wert basiert auf ähnlichen Materialien (Lehmputz, Strukturputz)\"\n}\n\n🧩 Verfügbare Tools\n\nGET Preise Material → liest alle Zeilen aus der Materialtabelle\n\nGET Preise Handwerker → liest alle Zeilen aus der Handwerkerliste\n\nFILTER → sucht Begriffe oder Kategorien nach Stichwort\n\nBERECHNE Durchschnitt → Mittelwert aller Treffer\n\nTHINK (Fallback) → schätzt realistischen Preis, wenn kein Eintrag existiert\n\nSTRUCTURE Ergebnis → gibt immer JSON-Antwort im definierten Format aus"
+        }
+      },
+      "id": "b082dd4d-01a0-4607-bea9-b68075e272f7",
+      "name": "Preislisten Agent1",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.6,
+      "position": [
+        288,
+        -128
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "name": "preislisten_agent",
+        "description": "Call this tool for any calendar action.",
+        "workflowId": {
+          "__rl": true,
+          "value": "0NtlJ41IozGhtFa6",
+          "mode": "list",
+          "cachedResultName": "🤖Calendar Agent"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2,
+      "position": [
+        592,
+        -288
+      ],
+      "id": "495e199e-1239-4409-bae7-c4d7317ecd82",
+      "name": "Preislisten Agent"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4.1-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4.1-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        288,
+        16
+      ],
+      "id": "314fa222-989e-4bfe-9b01-ab2807d93fac",
+      "name": "4.o-mini1",
+      "credentials": {
+        "openAiApi": {
+          "id": "k3iFEjoWomM3j55O",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1QmwgdSO9S-uGUm6SkF3DGxS8T5oKi9OOsWh5yUETfKc",
+          "mode": "list",
+          "cachedResultName": "Preise Handwerker & Material",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QmwgdSO9S-uGUm6SkF3DGxS8T5oKi9OOsWh5yUETfKc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Material 1.0",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QmwgdSO9S-uGUm6SkF3DGxS8T5oKi9OOsWh5yUETfKc/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        464,
+        240
+      ],
+      "id": "fa1b6d82-2f01-43bf-aac5-82193c7d4096",
+      "name": "GET Preise Material",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "O6QTbckrojFQLh4r",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1QmwgdSO9S-uGUm6SkF3DGxS8T5oKi9OOsWh5yUETfKc",
+          "mode": "list",
+          "cachedResultName": "Preise Handwerker & Material",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QmwgdSO9S-uGUm6SkF3DGxS8T5oKi9OOsWh5yUETfKc/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 515563784,
+          "mode": "list",
+          "cachedResultName": "Stundenstätze",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QmwgdSO9S-uGUm6SkF3DGxS8T5oKi9OOsWh5yUETfKc/edit#gid=515563784"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.6,
+      "position": [
+        592,
+        240
+      ],
+      "id": "0ff9a6aa-fec5-4a8a-b9ea-d26d53937bec",
+      "name": "GET Preise Handwerker",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "O6QTbckrojFQLh4r",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "description": "Dieses Tool hilft der KI, fehlende Preisangaben zu ergänzen, indem es einen realistischen Durchschnittspreis berechnet.\n\nWenn ein angefragtes Produkt, Material oder eine Dienstleistung nicht in den vorhandenen Preislisten gefunden wird\n(z. B. in den Google-Sheets „Preise Material“ oder „Preise Handwerker“), soll das Think-Tool wie folgt vorgehen:\n\n1. Analysiere, um welche Art von Produkt oder Gewerk es sich handelt \n   (z. B. Farbe, Putz, Fenster, Elektriker, Maler, Reinigung, etc.).\n2. Ermittle typische Marktpreise anhand allgemein zugänglicher Quellen \n   (Baumarktpreise, Online-Shops, Handwerks-Portale, Branchen-Durchschnittswerte).\n3. Berechne daraus einen **konkreten Durchschnittspreis** — **eine einzelne Zahl**.\n   Beispiel:\n   - „Schwarze Dispersionsfarbe, Durchschnittspreis 5,60 € / m²“\n   - „Maler (Geselle), üblicher Stundenlohn 41,00 € / h“\n4. Gib den Preis mit Einheit zurück (z. B. „€/m²“ oder „€/h“) und füge eine kurze Begründung hinzu, wie der Wert ermittelt wurde \n   (z. B. „basierend auf typischen Marktwerten aus 2025“).\n5. Keine Preisspannen, sondern nur **eine Zahl**, die den arithmetischen Mittelwert repräsentiert.\n\nZiel: Auch wenn kein exakter Eintrag in der Datenbank vorhanden ist, soll das Tool einen plausiblen, kalkulierbaren Durchschnittspreis liefern, der realistisch im aktuellen Marktumfeld liegt.\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolThink",
+      "typeVersion": 1.1,
+      "position": [
+        240,
+        224
+      ],
+      "id": "82bf3393-a699-4862-9585-230e4e7f8fc3",
+      "name": "Think"
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup",
+  "repo_owner": "nailujf7",
+  "repo_path": "nailujf7/n8n-backup/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "updatedAt": "2025-10-27T18:03:57.042Z",
+      "createdAt": "2025-10-27T18:03:57.042Z",
+      "role": "workflow:owner",
+      "workflowId": "1h0igRiwUFO7yMFE",
+      "projectId": "JNbAc1n2ZHXAEEkk"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2025-10-31T16:44:50.000Z",
+  "versionId": "2b47c9ee-aa07-4569-9465-a6db8f28477f"
+}
