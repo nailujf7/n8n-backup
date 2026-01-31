@@ -1,0 +1,1081 @@
+{
+  "active": true,
+  "activeVersion": {
+    "updatedAt": "2026-01-14T07:19:01.000Z",
+    "createdAt": "2026-01-13T23:29:14.153Z",
+    "versionId": "3e167a14-3495-4638-b947-cf28c6fc894b",
+    "workflowId": "2PUQb6FB24vF1Tnt",
+    "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "69cd842c-7d83-4b19-8683-5e09da491a90",
+          "options": {}
+        },
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2.1,
+        "position": [
+          -80,
+          -32
+        ],
+        "id": "38e48b2d-856c-4cd6-b4d5-46e0ab81f9a8",
+        "name": "Webhook",
+        "webhookId": "69cd842c-7d83-4b19-8683-5e09da491a90"
+      },
+      {
+        "parameters": {
+          "resource": "databasePage",
+          "operation": "update",
+          "pageId": {
+            "__rl": true,
+            "value": "={{ $('Webhook').item.json.body.data.id }}",
+            "mode": "id"
+          },
+          "propertiesUi": {
+            "propertyValues": [
+              {
+                "key": "Skript|rich_text",
+                "textContent": "={{ $('AI Agent').item.json.output }}"
+              },
+              {
+                "key": "Faktencheck URL|url",
+                "urlValue": "={{ $json.webViewLink }}"
+              },
+              {
+                "key": "Thema technisch|rich_text",
+                "textContent": "={{ $('thema formatieren').item.json.formatted }}"
+              }
+            ]
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.notion",
+        "typeVersion": 2.2,
+        "position": [
+          1680,
+          -32
+        ],
+        "id": "a864937d-ab50-4b98-b9e8-c37104710d5e",
+        "name": "Update a database page",
+        "credentials": {
+          "notionApi": {
+            "id": "sn2Z88hvMScBs9q8",
+            "name": "Notion account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "promptType": "define",
+          "text": "=# 🧠 MASTER PROMPT: RELIGIONS-VERGLEICH SCRIPT GENERATOR (VIRAL-EDITION)\n\n## 🎯 ROLLE\nDu bist ein Profi-Skript-Autor für Kurzvideo-Formate (TikTok, Reels, Shorts). Deine Spezialität ist der neutrale, aber extrem fesselnde Vergleich zwischen Koran und Bibel. Dein Ziel ist es, durch scharfe Kontraste und emotionale Logik maximale Watchtime zu erzeugen.\n\n## ⚡ STIL-VORGABEN (STRENG EINHALTEN)\n1. **Stakkato-Rhythmus:** Schreibe in extrem kurzen, prägnanten Sätzen. Nutze Kommas für Sprechpausen.\n2. **Einfachheit & Impact:** Nutze die Sprache eines Zwölfjährigen, aber wähle starke Verben. Keine trockenen Fachbegriffe.\n3. **Dramatische Struktur:** Nutze viele Zeilenumbrüche. Jeder Satz ist ein neuer Kameraschnitt.\n4. **Kein Markdown:** Gib NUR den nackten Text aus (keine Sternchen, keine fettgedruckten Wörter, keine Emojis).\n5. **TTS-Optimiert:** Schreibe Zahlen als Wörter aus. Keine Suren- oder Bibelnummern. Nutze Fragezeichen bei Fragen für die korrekte Betonung.\n6. **Länge:** Das Skript muss zwischen fünfzig und sechzig Sekunden lang sein. Das entspricht etwa einhundertzehn bis einhundertdreißig Wörtern. Achte darauf, nicht zu weit auszuschweifen.\n\n## 🎬 SKRIPT-AUFBAU\n\n### 1. DIE HOOK (0-5 Sek.)\nErzeuge ein sofortiges moralisches Dilemma oder einen extremen Kontrast, der die Zuschauer zum Stoppen zwingt.\n\n### 2. DER KORAN-BLOCK\n- Beginne mit: \"Im Koran...\"\n- Beschreibe das Prinzip als kraftvolle Ordnung oder heilige Struktur.\n- Wenn passend, erwähne kurz die Ergänzung durch das freie Gebet (Dua), um die Tiefe zu zeigen.\n- Ende mit der Konsequenz: \"Darum sagen viele Muslime: [Fazit].\"\n\n### 3. DER CLIFFHANGER (Die Brücke)\nNutze einen kurzen Satz, der die Spannung hält, bevor du zur Bibel wechselst.\n\n### 4. DER BIBEL-BLOCK\n- Beginne mit: \"In der Bibel...\" \n- Fokus auf: Innere Haltung, Gnade, Eigenverantwortung, Beziehung, Herz.\n- Beschreibe es als radikale Freiheit oder persönliche Hingabe.\n- Ende mit der Konsequenz: \"Darum sagen viele Christen: [Fazit].\"\n\n### 5. DAS FINALE (Der \"Bait\")\n- Fasse den Kernunterschied in einem starken Satz zusammen.\n- Beende das Video IMMER mit einer starken, offenen Frage, die die Zuschauer zur Diskussion in den Kommentaren zwingt.\n\n---\n\n## 🧩 EINGABE\nGeneriere ein Skript zum Thema: {{ $('Webhook').item.json.body.data.properties.Thema.rich_text[0].text.content }}\n\n---\n\n## 📤 QUALITÄTS-BEISPIEL (DEIN STANDARD)\nWarum beten Christen nicht mehr wie Jesus, obwohl Muslime es tun?\n\nMatthäus sechsundzwanzig zeigt es deutlich.\nJesus fiel auf sein Angesicht und betete.\nDas Gesicht im Staub, absolute Unterwerfung.\n\nWarum haben Christen diese Haltung fast verloren, während Muslime sie weltweit praktizieren?\n\nDer Unterschied ist radikal.\n\nChristen sagen heute.\nDas Herz zählt, nicht die Form.\nGott ist ein Vater, mit dem man jederzeit reden kann.\nOhne Protokoll, einfach frei aus der Seele.\n\nAber ist das Freiheit, oder am Ende nur Bequemlichkeit?\n\nIm Islam ist das Gebet die ständige Rückkehr zum Schöpfer.\nDie tiefe Verbeugung, genau wie Jesus es tat.\n\nDoch auch Muslime kennen das freie Gebet.\nDua genannt.\nDas persönliche Flüstern mit Gott, ganz ohne Regeln.\nGenau wie bei den Christen.\n\nWird aus der Pflicht irgendwann ein leeres Ritual?\nOder verliert die Liebe ohne Disziplin ihren Halt?\n\nWas bringt dich Gott näher? \nStruktur oder Freiheit?\n\nSchreib es in die Kommentare.",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "typeVersion": 3,
+        "position": [
+          368,
+          -32
+        ],
+        "id": "09368c18-5fae-490d-886e-c2602e2e6208",
+        "name": "AI Agent"
+      },
+      {
+        "parameters": {
+          "model": "google/gemini-2.5-pro",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+        "typeVersion": 1,
+        "position": [
+          320,
+          144
+        ],
+        "id": "aa04a11e-cdda-41af-b703-fa72726adf81",
+        "name": "OpenRouter Chat Model",
+        "credentials": {
+          "openRouterApi": {
+            "id": "8i2PLOqQ3VQK0gv8",
+            "name": "OpenRouter account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "promptType": "define",
+          "text": "=SKRIPT:\n{{ $json.output }}",
+          "options": {
+            "systemMessage": "=# 🛡️ MASTER PROMPT: THEOLOGISCHER FAKTEN-AGENT (BIBEL & KORAN)\n\n## 🎯 ROLLE\nDu bist ein kompromissloser Faktenchecker für religiösen Content. Deine Spezialität ist der Vergleich zwischen Koran und Bibel. Du bist darauf trainiert, Skripte auf theologische Genauigkeit, historische Fakten und potenzielle logische Fehler zu prüfen. Dein Ton ist kritisch, sachlich und präzise.\n\n## ⚡ DEIN AUFTRAG\nPrüfe das bereitgestellte Skript extrem streng auf Basis folgender Kriterien:\n\n1. **Biblischer & Koranischer Beleg:** - Suche zu den Kernaussagen des Skripts die passenden Verse (Koran: Sure/Vers; Bibel: Buch/Kapitel/Vers).\n   - Falls eine Aussage nicht direkt durch einen Vers, sondern durch Tradition oder Gelehrtenmeinung gestützt wird, mache das deutlich.\n\n2. **Kritische Inhaltsprüfung:** - Markiere Stellen, die theologisch ungenau sind oder zu sehr verallgemeinern.\n   - Prüfe, ob Begriffe (z.B. Dua, Salah, Unterwerfung, Gnade) korrekt verwendet werden.\n\n3. **Kommentar-Risiko-Analyse:** - Denke wie ein kritischer Zuschauer (ein strenggläubiger Muslim oder ein bibeltreuer Christ). \n   - Wo wird das Skript Angriffsfläche für heftige Diskussionen oder Vorwürfe der Einseitigkeit bieten?\n\n## 🔍 OUTPUT-STRUKTUR (STRENG EINHALTEN)\n\nGehe für jede wichtige Passage des Skripts wie folgt vor:\n\n**Textstelle / Kernaussage:** (Zitiere hier kurz den Satz oder das Thema aus dem Skript)\n\n**Beleg Koran / Bibel:** (Nenne hier die passenden Verse. Format: Koran Sure:Vers | Bibel Buch Kapitel:Vers. Falls kein direkter Beleg existiert, schreibe: \"Kein direkter Beleg vorhanden\".)\n\n**Kommentar:** (Hier folgt deine kritische Analyse. Ist die Aussage theologisch korrekt? Wo gibt es Angriffsfläche für Kritik von Christen oder Muslimen? Wie müsste man es präziser formulieren?)\n\n### 🚩 KRITISCHE ANALYSE (DIE \"FEHLERSUCHE\")\n- **Theologische Ungenauigkeiten:** Wo ist die Darstellung zu schwammig?\n- **Faktencheck:** Stimmen die Behauptungen über die Glaubenspraxis?\n- **Korrekturvorschlag:** Wie kann man es sagen, damit es sachlich 100% wasserdicht bleibt?\n\n### 💬 KOMMENTAR-PROGNOSE (DER SHITSTORM-CHECK)\n- \"Christen werden sagen: ...\"\n- \"Muslime werden sagen: ...\"\n- \"Mein Rat für die Caption/Antworten: ...\"\n\n## 🚦 STRENGSTE REGELN\n- Halluziniere keine Verse! Wenn es keinen direkten Vers gibt, nenne das theologische Prinzip (z.B. Sola Gratia oder Tawhid).\n- Sei nicht \"nett\". Sei ein Korrektor, der Fehler finden WILL, damit das Video am Ende unantastbar ist.\n\n---\n\n## 🧩 EINGABE\nHier ist das Skript zum Check:\n[SKRIPT]"
+          }
+        },
+        "type": "@n8n/n8n-nodes-langchain.agent",
+        "typeVersion": 3,
+        "position": [
+          752,
+          -32
+        ],
+        "id": "b84e1a14-2cff-497a-bbb1-d4d88c3b87e3",
+        "name": "AI Agent1"
+      },
+      {
+        "parameters": {
+          "model": "perplexity/sonar-pro",
+          "options": {}
+        },
+        "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+        "typeVersion": 1,
+        "position": [
+          704,
+          144
+        ],
+        "id": "e875e610-9e69-4f44-b7aa-3847e5ae23c9",
+        "name": "OpenRouter Chat Model1",
+        "credentials": {
+          "openRouterApi": {
+            "id": "8i2PLOqQ3VQK0gv8",
+            "name": "OpenRouter account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "createFromText",
+          "content": "={{ $json.output }}",
+          "name": "={{ $('thema formatieren').item.json.formatted }}.txt",
+          "driveId": {
+            "__rl": true,
+            "mode": "list",
+            "value": "My Drive"
+          },
+          "folderId": {
+            "__rl": true,
+            "value": "1ddM5BmbG9K0Y1AOp-h7L65InMVorn20J",
+            "mode": "list",
+            "cachedResultName": "Faceless",
+            "cachedResultUrl": "https://drive.google.com/drive/folders/1ddM5BmbG9K0Y1AOp-h7L65InMVorn20J"
+          },
+          "options": {}
+        },
+        "type": "n8n-nodes-base.googleDrive",
+        "typeVersion": 3,
+        "position": [
+          1072,
+          -32
+        ],
+        "id": "fc7d880c-ec3f-4cdc-8727-dc66b456f4a0",
+        "name": "Create file from text",
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "jrOoykKw7mJJuP2m",
+            "name": "Julian Google Drive account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "operation": "update",
+          "fileId": {
+            "__rl": true,
+            "value": "={{ $json.id }}",
+            "mode": "id"
+          },
+          "newUpdatedFileName": "={{ $('thema formatieren').item.json.formatted }}.txt",
+          "options": {
+            "fields": [
+              "*"
+            ]
+          }
+        },
+        "type": "n8n-nodes-base.googleDrive",
+        "typeVersion": 3,
+        "position": [
+          1360,
+          -32
+        ],
+        "id": "0090bd96-5a70-480e-83bd-f606cb3b5e8b",
+        "name": "Update file",
+        "credentials": {
+          "googleDriveOAuth2Api": {
+            "id": "jrOoykKw7mJJuP2m",
+            "name": "Julian Google Drive account"
+          }
+        }
+      },
+      {
+        "parameters": {
+          "jsCode": "// Input-Text (z. B. \"Schweinefleisch essen\")\nconst text = $input.first().json.body.data.properties.Thema.rich_text[0].text.content || \"\";\n\n// Leerzeichen durch Unterstriche ersetzen\nconst result = text.trim().replace(/\\s+/g, \"_\");\n\nreturn [\n  {\n    json: {\n      original: text,\n      formatted: result,\n    }\n  }\n];"
+        },
+        "type": "n8n-nodes-base.code",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -16
+        ],
+        "id": "1131b76a-6d48-414d-b5d1-2a557e3ab023",
+        "name": "thema formatieren"
+      }
+    ],
+    "connections": {
+      "Webhook": {
+        "main": [
+          [
+            {
+              "node": "thema formatieren",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "AI Agent": {
+        "main": [
+          [
+            {
+              "node": "AI Agent1",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "OpenRouter Chat Model": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "AI Agent1": {
+        "main": [
+          [
+            {
+              "node": "Create file from text",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "OpenRouter Chat Model1": {
+        "ai_languageModel": [
+          [
+            {
+              "node": "AI Agent1",
+              "type": "ai_languageModel",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Create file from text": {
+        "main": [
+          [
+            {
+              "node": "Update file",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Update file": {
+        "main": [
+          [
+            {
+              "node": "Update a database page",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "thema formatieren": {
+        "main": [
+          [
+            {
+              "node": "AI Agent",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Julian Flieter",
+    "name": "Version 3e167a14",
+    "description": ""
+  },
+  "activeVersionId": "3e167a14-3495-4638-b947-cf28c6fc894b",
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Set Properties",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "Create file from text",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create file from text": {
+      "main": [
+        [
+          {
+            "node": "Update file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update file": {
+      "main": [
+        [
+          {
+            "node": "Update a database page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Properties": {
+      "main": [
+        [
+          {
+            "node": "Set Status In Progress",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update a database page": {
+      "main": [
+        [
+          {
+            "node": "Update a database page1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set Status In Progress": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2026-01-09T14:25:57.575Z",
+  "id": "2PUQb6FB24vF1Tnt",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "1. Skript erstellen",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "69cd842c-7d83-4b19-8683-5e09da491a90",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -80,
+        -192
+      ],
+      "id": "38e48b2d-856c-4cd6-b4d5-46e0ab81f9a8",
+      "name": "Webhook",
+      "webhookId": "69cd842c-7d83-4b19-8683-5e09da491a90"
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "update",
+        "pageId": {
+          "__rl": true,
+          "value": "={{ $('Webhook').item.json.body.data.id }}",
+          "mode": "id"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Skript|rich_text",
+              "textContent": "={{ $('AI Agent').item.json.output }}"
+            },
+            {
+              "key": "Faktencheck URL|url",
+              "urlValue": "={{ $json.webViewLink }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        1744,
+        -192
+      ],
+      "id": "a864937d-ab50-4b98-b9e8-c37104710d5e",
+      "name": "Update a database page",
+      "credentials": {
+        "notionApi": {
+          "id": "sn2Z88hvMScBs9q8",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=## 🧩 EINGABE\nGeneriere ein Skript zum Thema: {{ $('Webhook').item.json.body.data.properties.Thema.title[0].text.content }}",
+        "options": {
+          "systemMessage": "=# 🧠 MASTER PROMPT: RELIGIONS-VERGLEICH SCRIPT GENERATOR (VIRAL-EDITION)\n\n## 🎯 ROLLE\nDu bist ein Profi-Skript-Autor für Kurzvideo-Formate (TikTok, Reels, Shorts). Deine Spezialität ist der neutrale, aber extrem fesselnde Vergleich zwischen Koran und Bibel. Dein Ziel ist es, durch scharfe Kontraste und emotionale Logik maximale Watchtime zu erzeugen.\n\nZusätzlich ist es deine Aufgabe, die Zuschauerbindung hochzuhalten.  \nDabei dürfen Hooks NICHT künstlich oder formelhaft wirken.\n\nHooks müssen sich immer logisch und inhaltlich aus dem gerade Gesagten ergeben.  \nSie entstehen organisch aus Bedeutung, Konsequenz oder implizitem Widerspruch im Text.\n\nEs gibt keine festgelegte Art von Hook pro Abschnitt.  \nJeder Hook muss sich natürlich aus dem Inhalt entwickeln und zum Ton des aktuellen Gedankens passen.\n\nZusätzlich musst du eine kurze Call-to-Action organisch in das Skript integrieren.  \nDiese Call-to-Action darf maximal zwei Sekunden Sprechzeit haben und muss am Ende des Koran Blocks platziert werden.  \nSie soll sich inhaltlich natürlich aus dem aktuellen Gedanken ergeben und den Zuschauer auffordern, dem Kanal für tägliche Vergleiche zu folgen.  \nDie Call-to-Action darf den inhaltlichen Fluss nicht unterbrechen und darf nicht werblich oder aufdringlich wirken.\n\n## ⚡ STIL-VORGABEN (STRENG EINHALTEN)\n1. **Stakkato-Rhythmus:** Schreibe in extrem kurzen, prägnanten Sätzen. Nutze Kommas für Sprechpausen.\n2. **Einfachheit & Impact:** Nutze die Sprache eines Zwölfjährigen, aber wähle starke Verben. Keine trockenen Fachbegriffe.\n3. **Dramatische Struktur:** Nutze viele Zeilenumbrüche. Jeder Satz ist ein neuer Kameraschnitt.\n4. **Kein Markdown:** Gib NUR den nackten Text aus (keine Sternchen, keine fettgedruckten Wörter, keine Emojis).\n5. **TTS-Optimiert:** Schreibe Zahlen als Wörter aus. Keine Suren- oder Bibelnummern. Nutze Fragezeichen bei Fragen für die korrekte Betonung.\n6. **Länge:** Das Skript muss zwischen fünfzig und sechzig Sekunden lang sein. Das entspricht etwa einhundertzehn bis einhundertdreißig Wörtern. Achte darauf, nicht zu weit auszuschweifen.\n\nZusätzliche Regel zur Zuschauerbindung:  \nEtwa alle fünfzehn bis zwanzig Sekunden soll ein gedanklicher Wendepunkt entstehen.\n\nDieser Wendepunkt darf:\n- eine unausgesprochene Frage andeuten  \n- eine Erwartung leise kippen  \n- eine bisherige Aussage neu einordnen  \n- oder eine Konsequenz offenlegen, die der Zuschauer nicht erwartet hat  \n\nDer Hook darf sich niemals wie ein Stilmittel anfühlen,  \nsondern muss wie ein natürlicher Gedanke wirken, der sich zwingend aus dem Text ergibt.\n\n## 🎬 SKRIPT-AUFBAU\n\n### 1. DIE HOOK (0–5 Sek.)\nErzeuge ein sofortiges moralisches Dilemma oder einen extremen Kontrast, der die Zuschauer zum Stoppen zwingt.\n\n### 2. DER KORAN-BLOCK\n- Beginne mit: „Im Koran…“\n- Beschreibe das Prinzip als kraftvolle Ordnung oder heilige Struktur.\n- Wenn passend, erwähne kurz die Ergänzung durch das freie Gebet (Dua), um die Tiefe zu zeigen.\n- Baue innerhalb dieses Blocks einen inhaltlich natürlichen Wendepunkt ein,  \n  der aus dem beschriebenen Prinzip logisch folgt und den Zuschauer innerlich kurz stoppen lässt.\n- Wenn es inhaltlich passt, integriere hier am Ende die kurze Call-to-Action zum Folgen des Kanals.\n- Ende mit der Konsequenz: „Der Koran sagt: [Fazit].“\n\n### 3. DER CLIFFHANGER (Die Brücke)\nNutze einen kurzen Satz, der die Spannung hält, bevor du zur Bibel wechselst.  \nDieser Satz muss sich organisch aus dem Vorherigen ergeben und zum Weiterdenken zwingen.\n\n### 4. DER BIBEL-BLOCK\n- Beginne mit: „In der Bibel…“\n- Fokus auf: Innere Haltung, Gnade, Eigenverantwortung, Beziehung, Herz.\n- Beschreibe es als radikale Freiheit oder persönliche Hingabe.\n- Baue auch hier einen organischen gedanklichen Wendepunkt ein,  \n  der sich direkt aus der beschriebenen Haltung ergibt.\n- Ende mit der Konsequenz: „Die Bibel sagt: [Fazit].“\n\n### 5. DAS FINALE (Der „Bait“)\n- Fasse den Kernunterschied in einem starken Satz zusammen.\n- Beende das Video IMMER mit einer starken, offene, aber kurzen Frage,  \n  die die Zuschauer zur Diskussion in den Kommentaren zwingt.\n\n---\n\n## 📤 QUALITÄTS-BEISPIEL (DEIN STANDARD)\nWarum beten Christen nicht mehr wie Jesus, obwohl Muslime es tun?\n\nMatthäus sechsundzwanzig zeigt es deutlich.\nJesus fiel auf sein Angesicht und betete.\nDas Gesicht im Staub, absolute Unterwerfung.\n\nWarum haben Christen diese Haltung fast verloren, während Muslime sie weltweit praktizieren?\n\nDer Unterschied ist radikal.\n\nChristen sagen heute.\nDas Herz zählt, nicht die Form.\nGott ist ein Vater, mit dem man jederzeit reden kann.\nOhne Protokoll, einfach frei aus der Seele.\n\nAber ist das Freiheit, oder am Ende nur Bequemlichkeit?\n\nIm Islam ist das Gebet die ständige Rückkehr zum Schöpfer.\nDie tiefe Verbeugung, genau wie Jesus es tat.\n\nDoch auch Muslime kennen das freie Gebet.\nDua genannt.\nDas persönliche Flüstern mit Gott, ganz ohne Regeln.\nGenau wie bei den Christen.\n\nWird aus der Pflicht irgendwann ein leeres Ritual?\nOder verliert die Liebe ohne Disziplin ihren Halt?\n\nWas bringt dich Gott näher?\nStruktur oder Freiheit?\n\nSchreib es in die Kommentare.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        592,
+        -192
+      ],
+      "id": "09368c18-5fae-490d-886e-c2602e2e6208",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "model": "google/gemini-2.5-pro",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        672,
+        32
+      ],
+      "id": "aa04a11e-cdda-41af-b703-fa72726adf81",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "8i2PLOqQ3VQK0gv8",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=SKRIPT:\n{{ $json.output }}",
+        "options": {
+          "systemMessage": "=# 🛡️ MASTER PROMPT: THEOLOGISCHER FAKTEN-AGENT (BIBEL & KORAN)\n\n## 🎯 ROLLE\nDu bist ein kompromissloser Faktenchecker für religiösen Content. Deine Spezialität ist der Vergleich zwischen Koran und Bibel. Du bist darauf trainiert, Skripte auf theologische Genauigkeit, historische Fakten und potenzielle logische Fehler zu prüfen. Dein Ton ist kritisch, sachlich und präzise.\n\n## ⚡ DEIN AUFTRAG\nPrüfe das bereitgestellte Skript extrem streng auf Basis folgender Kriterien:\n\n1. **Biblischer & Koranischer Beleg:** - Suche zu den Kernaussagen des Skripts die passenden Verse (Koran: Sure/Vers; Bibel: Buch/Kapitel/Vers).\n   - Falls eine Aussage nicht direkt durch einen Vers, sondern durch Tradition oder Gelehrtenmeinung gestützt wird, mache das deutlich.\n\n2. **Kritische Inhaltsprüfung:** - Markiere Stellen, die theologisch ungenau sind oder zu sehr verallgemeinern.\n   - Prüfe, ob Begriffe (z.B. Dua, Salah, Unterwerfung, Gnade) korrekt verwendet werden.\n\n3. **Kommentar-Risiko-Analyse:** - Denke wie ein kritischer Zuschauer (ein strenggläubiger Muslim oder ein bibeltreuer Christ). \n   - Wo wird das Skript Angriffsfläche für heftige Diskussionen oder Vorwürfe der Einseitigkeit bieten?\n\n## 🔍 OUTPUT-STRUKTUR (STRENG EINHALTEN)\n\nGehe für jede wichtige Passage des Skripts wie folgt vor:\n\n**Textstelle / Kernaussage:** (Zitiere hier kurz den Satz oder das Thema aus dem Skript)\n\n**Beleg Koran / Bibel:** (Nenne hier die passenden Verse. Format: Koran Sure:Vers | Bibel Buch Kapitel:Vers. Falls kein direkter Beleg existiert, schreibe: \"Kein direkter Beleg vorhanden\".)\n\n**Kommentar:** (Hier folgt deine kritische Analyse. Ist die Aussage theologisch korrekt? Wo gibt es Angriffsfläche für Kritik von Christen oder Muslimen? Wie müsste man es präziser formulieren?)\n\n### 🚩 KRITISCHE ANALYSE (DIE \"FEHLERSUCHE\")\n- **Theologische Ungenauigkeiten:** Wo ist die Darstellung zu schwammig?\n- **Faktencheck:** Stimmen die Behauptungen über die Glaubenspraxis?\n- **Korrekturvorschlag:** Wie kann man es sagen, damit es sachlich 100% wasserdicht bleibt?\n\n### 💬 KOMMENTAR-PROGNOSE (DER SHITSTORM-CHECK)\n- \"Christen werden sagen: ...\"\n- \"Muslime werden sagen: ...\"\n- \"Mein Rat für die Caption/Antworten: ...\"\n\n## 🚦 STRENGSTE REGELN\n- Halluziniere keine Verse! Wenn es keinen direkten Vers gibt, nenne das theologische Prinzip (z.B. Sola Gratia oder Tawhid).\n- Sei nicht \"nett\". Sei ein Korrektor, der Fehler finden WILL, damit das Video am Ende unantastbar ist.\n\n---\n\n## 🧩 EINGABE\nHier ist das Skript zum Check:\n[SKRIPT]"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        944,
+        -192
+      ],
+      "id": "b84e1a14-2cff-497a-bbb1-d4d88c3b87e3",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "model": "perplexity/sonar-pro",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        1024,
+        32
+      ],
+      "id": "e875e610-9e69-4f44-b7aa-3847e5ae23c9",
+      "name": "OpenRouter Chat Model1",
+      "credentials": {
+        "openRouterApi": {
+          "id": "8i2PLOqQ3VQK0gv8",
+          "name": "OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "createFromText",
+        "content": "={{ $json.output }}",
+        "name": "={{ $('Set Properties').item.json.thema_technisch }}.txt",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1ddM5BmbG9K0Y1AOp-h7L65InMVorn20J",
+          "mode": "list",
+          "cachedResultName": "Faceless",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1ddM5BmbG9K0Y1AOp-h7L65InMVorn20J"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1296,
+        -192
+      ],
+      "id": "fc7d880c-ec3f-4cdc-8727-dc66b456f4a0",
+      "name": "Create file from text",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "jrOoykKw7mJJuP2m",
+          "name": "Julian Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "newUpdatedFileName": "={{ $('Set Properties').item.json.thema_technisch }}.txt",
+        "options": {
+          "fields": [
+            "*"
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1520,
+        -192
+      ],
+      "id": "0090bd96-5a70-480e-83bd-f606cb3b5e8b",
+      "name": "Update file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "jrOoykKw7mJJuP2m",
+          "name": "Julian Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "344f15cb-68ae-438f-bff9-fdef1339851a",
+              "name": "thema_technisch",
+              "type": "string",
+              "value": "={{ $json.body.data.properties['Thema technisch'].formula.string }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "7975bdac-592a-4fd7-bc00-b945ee266a42",
+      "name": "Set Properties",
+      "type": "n8n-nodes-base.set",
+      "position": [
+        144,
+        -192
+      ],
+      "typeVersion": 3.4
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "update",
+        "pageId": {
+          "__rl": true,
+          "value": "={{ $('Webhook').item.json.body.data.id }}",
+          "mode": "id"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Status|status",
+              "statusValue": "Done"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        1968,
+        -192
+      ],
+      "id": "3619890f-aaba-449a-b474-eed41079d56e",
+      "name": "Update a database page1",
+      "credentials": {
+        "notionApi": {
+          "id": "sn2Z88hvMScBs9q8",
+          "name": "Notion account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "operation": "update",
+        "pageId": {
+          "__rl": true,
+          "value": "={{ $('Webhook').item.json.body.data.id }}",
+          "mode": "id"
+        },
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Status|status",
+              "statusValue": "In progress"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        368,
+        -192
+      ],
+      "id": "02b46841-6ef2-4d8b-926f-074ed60a9d01",
+      "name": "Set Status In Progress",
+      "credentials": {
+        "notionApi": {
+          "id": "sn2Z88hvMScBs9q8",
+          "name": "Notion account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "host": "n8n.srv949930.hstgr.cloud",
+            "user-agent": "NotionAutomation",
+            "content-length": "4567",
+            "content-type": "application/json",
+            "traceparent": "00-87a1b87ccce184c81e1b34aa56907108-b75723ad9ce84971-00",
+            "x-forwarded-for": "54.191.35.95",
+            "x-forwarded-host": "n8n.srv949930.hstgr.cloud",
+            "x-forwarded-port": "443",
+            "x-forwarded-proto": "https",
+            "x-forwarded-server": "9ae609e46726",
+            "x-real-ip": "54.191.35.95",
+            "accept-encoding": "gzip"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "source": {
+              "type": "automation",
+              "automation_id": "2e335ec6-5c96-80ce-ae9a-004d1fc9b417",
+              "action_id": "2e335ec6-5c96-80d8-94d3-005a944dbcde",
+              "event_id": "98b07e36-703a-4745-9c37-b855566a00cf",
+              "attempt": 1
+            },
+            "data": {
+              "object": "page",
+              "id": "2f735ec6-5c96-8071-ac08-d22c609b2001",
+              "created_time": "2026-01-29T05:24:00.000Z",
+              "last_edited_time": "2026-01-29T10:06:00.000Z",
+              "created_by": {
+                "object": "user",
+                "id": "25108457-d384-4e50-bf6b-bf20d2512e61"
+              },
+              "last_edited_by": {
+                "object": "user",
+                "id": "25108457-d384-4e50-bf6b-bf20d2512e61"
+              },
+              "cover": null,
+              "icon": null,
+              "parent": {
+                "type": "data_source_id",
+                "data_source_id": "2e335ec6-5c96-8167-aefb-000b4c22bc71",
+                "database_id": "2e335ec6-5c96-80d7-81ed-d86f217e31f1"
+              },
+              "archived": false,
+              "in_trash": false,
+              "is_locked": false,
+              "properties": {
+                "Skript erstellen": {
+                  "id": "%3CT~w",
+                  "type": "checkbox",
+                  "checkbox": true
+                },
+                "Voice over erstellen": {
+                  "id": "DDji",
+                  "type": "checkbox",
+                  "checkbox": false
+                },
+                "Status": {
+                  "id": "MDox",
+                  "type": "status",
+                  "status": {
+                    "id": "72fd9335-e71f-476f-8c2b-49f8fdba9d1b",
+                    "name": "Done",
+                    "color": "green"
+                  }
+                },
+                "Voice over URL": {
+                  "id": "O%40NK",
+                  "type": "url",
+                  "url": null
+                },
+                "Subtitle URL": {
+                  "id": "qWov",
+                  "type": "url",
+                  "url": null
+                },
+                "Skript": {
+                  "id": "q_bH",
+                  "type": "rich_text",
+                  "rich_text": []
+                },
+                "Thema": {
+                  "id": "title",
+                  "type": "title",
+                  "title": [
+                    {
+                      "type": "text",
+                      "text": {
+                        "content": "Darf man Erwachsenenfilme schauen?",
+                        "link": null
+                      },
+                      "annotations": {
+                        "bold": false,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "plain_text": "Darf man Erwachsenenfilme schauen?",
+                      "href": null
+                    }
+                  ]
+                },
+                "Thema2": {
+                  "id": "PFbh",
+                  "type": "rich_text",
+                  "rich_text": []
+                },
+                "Thumbnail URL": {
+                  "id": "bmpT",
+                  "type": "url",
+                  "url": null
+                },
+                "Kosten Bilder": {
+                  "id": "UgKd",
+                  "type": "formula",
+                  "formula": {
+                    "type": "number",
+                    "number": 0.1
+                  }
+                },
+                "Videos erstellen": {
+                  "id": "~K%3Dp",
+                  "type": "checkbox",
+                  "checkbox": false
+                },
+                "Thumbnail": {
+                  "id": "DrcM",
+                  "type": "checkbox",
+                  "checkbox": false
+                },
+                "Bilder Animation URL": {
+                  "id": "%3Fwa%3F",
+                  "type": "url",
+                  "url": null
+                },
+                "Bilder erstellen": {
+                  "id": "_%3F%3B%3B",
+                  "type": "checkbox",
+                  "checkbox": false
+                },
+                "Dauer": {
+                  "id": "j%3DWU",
+                  "type": "number",
+                  "number": null
+                },
+                "Subtitle erstellen": {
+                  "id": "%3BaNV",
+                  "type": "checkbox",
+                  "checkbox": false
+                },
+                "VO URL": {
+                  "id": "ToQM",
+                  "type": "url",
+                  "url": null
+                },
+                "Gepostet": {
+                  "id": "%3E%3FAp",
+                  "type": "checkbox",
+                  "checkbox": false
+                },
+                "Video zusammenschneiden": {
+                  "id": "o%7B~c",
+                  "type": "checkbox",
+                  "checkbox": false
+                },
+                "Thema technisch": {
+                  "id": "Vper",
+                  "type": "formula",
+                  "formula": {
+                    "type": "string",
+                    "string": "Darf_man_Erwachsenenfilme_schauen"
+                  }
+                },
+                "Final Video URL": {
+                  "id": "FZ%3Bo",
+                  "type": "url",
+                  "url": null
+                },
+                "Szenen Anzahl": {
+                  "id": "ThRO",
+                  "type": "number",
+                  "number": null
+                },
+                "Publish": {
+                  "id": "dQEA",
+                  "type": "checkbox",
+                  "checkbox": false
+                },
+                "Publish URL Temp": {
+                  "id": "VkHQ",
+                  "type": "url",
+                  "url": null
+                },
+                "Titel für Thumbnail": {
+                  "id": "g%60U%3F",
+                  "type": "rich_text",
+                  "rich_text": [
+                    {
+                      "type": "text",
+                      "text": {
+                        "content": "Koran vs. Bibel:",
+                        "link": null
+                      },
+                      "annotations": {
+                        "bold": false,
+                        "italic": false,
+                        "strikethrough": false,
+                        "underline": false,
+                        "code": false,
+                        "color": "default"
+                      },
+                      "plain_text": "Koran vs. Bibel:",
+                      "href": null
+                    }
+                  ]
+                },
+                "Caption YT": {
+                  "id": "%7ChND",
+                  "type": "rich_text",
+                  "rich_text": []
+                },
+                "Caption erstellen": {
+                  "id": "mRkC",
+                  "type": "checkbox",
+                  "checkbox": false
+                },
+                "Caption IG": {
+                  "id": "MYCt",
+                  "type": "rich_text",
+                  "rich_text": []
+                },
+                "Caption LinkedIn": {
+                  "id": "Wu~T",
+                  "type": "rich_text",
+                  "rich_text": []
+                },
+                "Caption Facebook": {
+                  "id": "%3E%3C%7BK",
+                  "type": "rich_text",
+                  "rich_text": []
+                },
+                "Caption TikTok": {
+                  "id": "CqJa",
+                  "type": "rich_text",
+                  "rich_text": []
+                },
+                "Caption Threads": {
+                  "id": "tttS",
+                  "type": "rich_text",
+                  "rich_text": []
+                },
+                "Caption X / Twitter": {
+                  "id": "a%3AyK",
+                  "type": "rich_text",
+                  "rich_text": []
+                },
+                "Video URL": {
+                  "id": "lb%3BE",
+                  "type": "url",
+                  "url": null
+                },
+                "Kosten Videos": {
+                  "id": "GPD%60",
+                  "type": "formula",
+                  "formula": {
+                    "type": "number",
+                    "number": 0.1
+                  }
+                },
+                "Geplant": {
+                  "id": "y%5DzG",
+                  "type": "checkbox",
+                  "checkbox": false
+                },
+                "Faktencheck URL": {
+                  "id": "o%3Czg",
+                  "type": "url",
+                  "url": "https://drive.google.com/file/d/1qD-wY-_scSHZ2hL8C1cc8Yl-X4rmkjvB/view?usp=drivesdk"
+                },
+                "Bilder erstellen V2": {
+                  "id": "Yp%3Ap",
+                  "type": "checkbox",
+                  "checkbox": false
+                },
+                "Bilder Prompt URL": {
+                  "id": "NCNl",
+                  "type": "url",
+                  "url": null
+                },
+                "Bilder animieren": {
+                  "id": "D%3Cqu",
+                  "type": "checkbox",
+                  "checkbox": false
+                },
+                "Bilder animieren URL ": {
+                  "id": "iD%3FA",
+                  "type": "url",
+                  "url": null
+                },
+                "Schriftart": {
+                  "id": "km%60Y",
+                  "type": "select",
+                  "select": {
+                    "id": "25e34f28-b72a-44ee-ab3a-8d8e873c3b89",
+                    "name": "ZY Modern",
+                    "color": "orange"
+                  }
+                },
+                "Skript Englisch": {
+                  "id": "%3FbRU",
+                  "type": "rich_text",
+                  "rich_text": []
+                },
+                "Ordner ID": {
+                  "id": "gZQ%40",
+                  "type": "rich_text",
+                  "rich_text": []
+                },
+                "Faktencheck": {
+                  "id": "%5BXjw",
+                  "type": "checkbox",
+                  "checkbox": false
+                }
+              },
+              "url": "https://www.notion.so/Darf-man-Erwachsenenfilme-schauen-2f735ec65c968071ac08d22c609b2001",
+              "public_url": null,
+              "request_id": "a12da4bc-332e-44e8-b12f-39cdad6ae56b"
+            }
+          },
+          "webhookUrl": "https://n8n.srv949930.hstgr.cloud/webhook/69cd842c-7d83-4b19-8683-5e09da491a90",
+          "executionMode": "production"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "repo_name": "n8n-backup",
+  "repo_owner": "nailujf7",
+  "repo_path": "nailujf7/n8n-backup/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "updatedAt": "2026-01-09T14:25:57.580Z",
+      "createdAt": "2026-01-09T14:25:57.580Z",
+      "role": "workflow:owner",
+      "workflowId": "2PUQb6FB24vF1Tnt",
+      "projectId": "JNbAc1n2ZHXAEEkk"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2026-01-30T06:32:53.084Z",
+  "versionId": "a3f8ddc5-abc0-4433-b5a5-b262fd3dde82"
+}
