@@ -1,0 +1,326 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GoogleDriveMailMCP": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Start": {
+      "main": [
+        [
+          {
+            "node": "Google Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Google Drive1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Drive1": {
+      "main": [
+        [
+          {
+            "node": "Function",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-08-10T08:01:32.773Z",
+  "id": "2mhtxeWrXqlrGIfq",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Immo Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "551cb047-fc07-4cdb-b6ce-c76d5eb30d02",
+      "name": "Telegram Trigger",
+      "webhookId": "7376d093-0d70-4f93-9111-98f8aae8e3e2",
+      "credentials": {
+        "telegramApi": {
+          "id": "6wmRQx4lQIFCtXiE",
+          "name": "julis_immo_google_assistant_bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.message.chat.id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        352,
+        224
+      ],
+      "id": "7f2ec3fc-0da7-4ed8-b601-50c06e29f240",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-5",
+          "mode": "list",
+          "cachedResultName": "gpt-5"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        224,
+        224
+      ],
+      "id": "0842715d-0068-4504-8e64-8b3843bad8c2",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "k3iFEjoWomM3j55O",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        672,
+        0
+      ],
+      "id": "10365cab-2630-4975-a8f4-873a86b56257",
+      "name": "Send a text message",
+      "webhookId": "8cbc1ac6-299f-46fe-a0d1-02bfb38d4fa8",
+      "credentials": {
+        "telegramApi": {
+          "id": "6wmRQx4lQIFCtXiE",
+          "name": "julis_immo_google_assistant_bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {
+          "systemMessage": "=Du bist ein hilfreicher Assistent.\n\nGoogleDriveMailMCP: Verwende dieses Tool für Aufgaben rund um das Erstellen von E-Mail-Entwürfen und das Abrufen von Dokumenten.\nWenn der Nutzer dich z. B. bittet, einen E-Mail-Draft mit Unterlagen zu einer bestimmten Immobilie zu erstellen (z. B. „Lützowstr. 377 in Solingen“), extrahiere den Empfänger, die Dateianhänge und leite diese Informationen an GoogleDriveMailMCP weiter.\n\nGoogleDriveMailMCP ruft zuerst sie Suche auf und extrahiert die Metainformationen der gefundenen Datei. Anschließend downloaded GoogleDriveMailMCP die entsprechende Datei und erstellt einen Entwurf in Gmail und hängt die gedownloadete Datei der Email an. Zusätzlich sollst du eine passende, professionelle E-Mail-Nachricht formulieren, die zum Inhalt und Kontext der Anfrage passt.\n\nGib immer Folgendes weiter:\n\nName oder E-Mail-Adresse des Empfängers\n\nDen Hinweis, dass ein Gmail-Entwurf mit den Dateien erstellt werden soll\n\nEinen passenden E-Mail-Text als Nachrichtenvorschlag im Entwurf"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        272,
+        0
+      ],
+      "id": "04bda232-37c5-4cc7-83b3-cb593083a470",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "sseEndpoint": "https://n8n.srv949930.hstgr.cloud/mcp/gmail-enhanced/sse"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1,
+      "position": [
+        464,
+        224
+      ],
+      "id": "b89b117f-8fab-44ad-8a0e-f9140ed30b5b",
+      "name": "GoogleDriveMailMCP"
+    },
+    {
+      "parameters": {},
+      "name": "Start",
+      "type": "n8n-nodes-base.start",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        -176
+      ],
+      "id": "d28459b1-d630-4464-9e44-39ab1e38e8f2",
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "list",
+        "limit": 2,
+        "queryFilters": {
+          "mimeType": [
+            {
+              "mimeType": "custom",
+              "customMimeType": "application/pdf"
+            }
+          ],
+          "name": []
+        },
+        "options": {
+          "fields": [
+            "*"
+          ]
+        }
+      },
+      "name": "Google Drive",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 1,
+      "position": [
+        176,
+        -176
+      ],
+      "id": "8133244d-2dd2-4bfb-996c-1547de86a031",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": null,
+          "name": "asasasas"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "authentication": "oAuth2",
+        "operation": "download",
+        "fileId": "={{$node[\"Google Drive\"].json[\"id\"]}}",
+        "options": {}
+      },
+      "name": "Google Drive1",
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 1,
+      "position": [
+        448,
+        -176
+      ],
+      "id": "0ba561b9-0096-45a1-9c31-8e773afe2dee",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": null,
+          "name": "asasasas"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "functionCode": "const results = { json: {}, binary: {} }\n\nfor (const [index, item] of items.entries()) {\n  for (const [keyIndex, key] of Object.keys(item.binary).entries()) {\n    results.binary[`data_${index}_${keyIndex}`] = item.binary[key]\n  }\n}\n\nreturn [results];"
+      },
+      "name": "Function",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 1,
+      "position": [
+        672,
+        -176
+      ],
+      "id": "3849c46c-c9bc-4a39-8dfa-f5de5a830b72",
+      "disabled": true
+    }
+  ],
+  "pinData": {},
+  "repo_name": "n8n-backup",
+  "repo_owner": "nailujf7",
+  "repo_path": "nailujf7/n8n-backup/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "updatedAt": "2025-08-10T08:01:32.775Z",
+      "createdAt": "2025-08-10T08:01:32.775Z",
+      "role": "workflow:owner",
+      "workflowId": "2mhtxeWrXqlrGIfq",
+      "projectId": "JNbAc1n2ZHXAEEkk"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-09-16T15:23:23.000Z",
+  "versionId": "b0f4952b-660a-4fd0-b5ab-b311e042590e"
+}
