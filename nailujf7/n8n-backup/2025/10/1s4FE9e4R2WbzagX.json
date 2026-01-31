@@ -1,0 +1,1151 @@
+{
+  "active": false,
+  "activeVersion": null,
+  "activeVersionId": null,
+  "connections": {
+    "Convert MS files to Google Docs": {
+      "main": [
+        [
+          {
+            "node": "Get Document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Document": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Aggregate1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Get Document3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert table row1": {
+      "main": [
+        [
+          {
+            "node": "Get Document2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "convert_text_to_json": {
+      "main": [
+        [
+          {
+            "node": "Canon",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Document2": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "convert_text_to_json",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Document3": {
+      "main": [
+        [
+          {
+            "node": "Insert table row1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update Metadata": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate1": {
+      "main": [
+        [
+          {
+            "node": "Update Metadata",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update file": {
+      "main": [
+        [
+          {
+            "node": "Convert MS files to Google Docs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Send a document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Update file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a text message": {
+      "main": [
+        []
+      ]
+    },
+    "Execute Workflow": {
+      "main": [
+        [
+          {
+            "node": "Handwerker",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Material",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Receive Message": {
+      "main": [
+        [
+          {
+            "node": "Execute Workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a document": {
+      "main": [
+        []
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Material": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Handwerker": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Canon": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2025-10-20T20:12:30.771Z",
+  "id": "1s4FE9e4R2WbzagX",
+  "isArchived": false,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "name": "Angebots-Agent V2 Channel Bra v2",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "### Setup\n1. Create a table in Supabase called **message_queue**. It needs to have the following columns: **user_id** (`uint8`), **message** (`text`), and **message_id** (`uint8`)\n2. Add your **Telegram**, **Supabase**, **OpenAI**, and **PostgreSQL** credentials\n3. Activate the workflow and test by sending multiple messages the Telegram bot in one go\n4. Wait ten seconds after which you will receive a single reply to all of your messages",
+        "height": 220,
+        "width": 520
+      },
+      "id": "be94721c-9384-4160-959e-674740e05c65",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1216,
+        -16
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "## Allow Users to Send a Sequence of Messages to an AI Agent in Telegram with Supabase\n### Use Case\nWhen creating chatbots that interface through applications such as **Telegram** and **WhatsApp**, users can often sends multiple shorter messages in quick succession, in place of a single, longer message. This workflow accounts for this behaviour.\n### What it Does\nThis workflow allows users to send several messages in quick succession, treating them as one coherent conversation instead of separate messages requiring individual responses. \n### How it Works\n1. When messages arrive, they are stored in a **Supabase PostgreSQL** table\n2. The system waits briefly to see if additional messages arrive\n3. If no new messages arrive within the waiting period, all queued messages are:\n   - Combined and processed as a single conversation\n   - Responded to with one unified reply\n   - Deleted from the queue",
+        "height": 420,
+        "width": 700
+      },
+      "id": "72035371-27b5-49a7-a455-3d367ff9c18c",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -1296,
+        432
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://www.googleapis.com/drive/v2/files/{{ $json.id }}/copy?convert=true&supportsAllDrives=true",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleDriveOAuth2Api",
+        "options": {}
+      },
+      "id": "e4ce734d-3bfd-4bca-9a26-7f3333badedf",
+      "name": "Convert MS files to Google Docs",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [
+        1392,
+        928
+      ],
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "jrOoykKw7mJJuP2m",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentURL": "={{ $items(\"Get Document\")[0].json.documentId }}",
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "replaceAll",
+              "text": "[Auftragnehmer Firma]",
+              "replaceText": "={{ $('convert_text_to_json').item.json['Auftragnehmer Firma'] }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "[Auftragnehmer Name]",
+              "replaceText": "={{ $('convert_text_to_json').item.json['Auftragnehmer Name'] }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "[Auftragnehmer Straße]",
+              "replaceText": "={{ $('convert_text_to_json').item.json['Auftragnehmer Straße'] }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "[Auftragnehmer HausNr]",
+              "replaceText": "={{ $('convert_text_to_json').item.json['Auftragnehmer HausNr'] }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "[Auftragnehmer PLZ]",
+              "replaceText": "={{ $('convert_text_to_json').item.json['Auftragnehmer PLZ'] }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "[Auftragnehmer Stadt]",
+              "replaceText": "={{ $('convert_text_to_json').item.json['Auftraggeber Stadt'] }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "[Belegdatum]",
+              "replaceText": "={{ $('convert_text_to_json').item.json.Belegdatum }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "[Anfragedatum]",
+              "replaceText": "={{ $('convert_text_to_json').item.json.Anfragedatum }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "[Auftraggeber Firma]",
+              "replaceText": "={{ $('convert_text_to_json').item.json['Auftraggeber Firma'] }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "[Auftraggeber Strasse]",
+              "replaceText": "={{ $('convert_text_to_json').item.json['Auftraggeber Straße'] }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "[Auftraggeber HausNr]",
+              "replaceText": "={{ $('convert_text_to_json').item.json['Auftraggeber HausNr'] }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "[Auftraggeber PLZ]",
+              "replaceText": "={{ $('convert_text_to_json').item.json['Auftraggeber PLZ'] }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "[Auftraggeber Stadt]",
+              "replaceText": "={{ $('convert_text_to_json').item.json['Auftraggeber Stadt'] }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "=[netto]",
+              "replaceText": "={{ `${$('convert_text_to_json').item.json['gesamtpreis']['netto']}` }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "=[brutto]",
+              "replaceText": "={{ `${$('convert_text_to_json').item.json['gesamtpreis']['brutto']}` }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "[Anrede]",
+              "replaceText": "={{ $item(0).$node[\"Canon\"].json[\"Anrede\"] || \"\" }}\n"
+            },
+            {
+              "action": "replaceAll",
+              "text": "[Bauvorhaben_Straße]",
+              "replaceText": "={{ $('convert_text_to_json').item.json['Bauvorhaben Straße'] }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "[BAUVORHABEN HAUSNR]",
+              "replaceText": "={{ $('convert_text_to_json').item.json['Bauvorhaben HausNr'] }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "BAUVORHABEN_PLZ]",
+              "replaceText": "={{ $('convert_text_to_json').item.json['Bauvorhaben PLZ'] }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "[BAUVORHABEN_ORT]",
+              "replaceText": "={{ $('convert_text_to_json').item.json['Bauvorhaben Ort'] }}"
+            },
+            {
+              "action": "replaceAll",
+              "text": "[AnsprechpartnerAuftragnehmer]",
+              "replaceText": "={{ $('convert_text_to_json').item.json['Ansprechpartner Auftragnehmer'] }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        3232,
+        736
+      ],
+      "id": "3b9771f5-d1db-4e0c-a8c1-21df90a3bdae",
+      "name": "Update Metadata",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "AJkXhfOA4czG9AXW",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "documentURL": "={{ $json.id }}",
+        "simple": false
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        1616,
+        928
+      ],
+      "id": "4ee47e9d-3f5c-4fc1-867b-b18c1ddefee1",
+      "name": "Get Document",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "AJkXhfOA4czG9AXW",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        2784,
+        928
+      ],
+      "id": "2b0fa4c1-65a7-4f20-bd23-8cfb3acf6ea2",
+      "name": "Loop Over Items",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentURL": "={{ $('Get Document3').item.json.documentId }}",
+        "simple": false,
+        "actionsUi": {
+          "actionFields": [
+            {
+              "object": "tableRow",
+              "action": "insert",
+              "index": "={{ $('Get Document3').item.json.body.content[2].startIndex }}",
+              "rowIndex": "={{ $('Get Document3').item.json.body.content[2].table.rows - 5}}"
+            }
+          ]
+        }
+      },
+      "id": "eae5e136-af0c-4cb7-84d2-0e41d828c045",
+      "name": "Insert table row1",
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        3232,
+        944
+      ],
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "AJkXhfOA4czG9AXW",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{ $json.cleaned }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2064,
+        928
+      ],
+      "id": "4f378df8-7c43-489b-9daa-c74c2ac34c2c",
+      "name": "convert_text_to_json",
+      "alwaysOutputData": false
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "positionen",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        2496,
+        928
+      ],
+      "id": "de7e75b8-e88e-40c2-9885-ab503d17e3bf",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "documentURL": "={{ $json.documentId }}",
+        "simple": false
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        3472,
+        944
+      ],
+      "id": "2dfc3d19-c012-47f7-91d2-0eec4a03560e",
+      "name": "Get Document2",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "AJkXhfOA4czG9AXW",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://docs.googleapis.com/v1/documents/{{ $json[\"documentId\"] }}:batchUpdate",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleDriveOAuth2Api",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"requests\": [\n    {\n      \"insertText\": {\n        \"location\": {\n          \"index\": {{ $('Get Document2').item.json.body.content[2].table.tableRows[\n            $('Get Document2').item.json.body.content[2].table.tableRows.length - 6\n          ].tableCells[5].content[0].paragraph.elements[0].startIndex }}\n        },\n        \"text\": \"{{ $('Split Out').item.json.gesamtpreis }}\"\n      }\n    },\n    {\n      \"insertText\": {\n        \"location\": {\n          \"index\": {{ $('Get Document2').item.json.body.content[2].table.tableRows[\n            $('Get Document2').item.json.body.content[2].table.tableRows.length - 6\n          ].tableCells[4].content[0].paragraph.elements[0].startIndex }}\n        },\n        \"text\": \"{{ $('Split Out').item.json.einzelpreis }}\"\n      }\n    },\n    {\n      \"insertText\": {\n        \"location\": {\n          \"index\": {{ $('Get Document2').item.json.body.content[2].table.tableRows[\n            $('Get Document2').item.json.body.content[2].table.tableRows.length - 6\n          ].tableCells[3].content[0].paragraph.elements[0].startIndex }}\n        },\n        \"text\": \"{{ $('Split Out').item.json.einheit }}\"\n      }\n    },\n    {\n      \"insertText\": {\n        \"location\": {\n          \"index\": {{ $('Get Document2').item.json.body.content[2].table.tableRows[\n            $('Get Document2').item.json.body.content[2].table.tableRows.length - 6\n          ].tableCells[2].content[0].paragraph.elements[0].startIndex }}\n        },\n        \"text\": \"{{ $('Split Out').item.json.menge }}\"\n      }\n    },\n    {\n      \"insertText\": {\n        \"location\": {\n          \"index\": {{ $('Get Document2').item.json.body.content[2].table.tableRows[\n            $('Get Document2').item.json.body.content[2].table.tableRows.length - 6\n          ].tableCells[1].content[0].paragraph.elements[0].startIndex }}\n        },\n        \"text\": \"{{ $('Split Out').item.json.bezeichnung }}\"\n      }\n    },\n    {\n      \"insertText\": {\n        \"location\": {\n          \"index\": {{ $('Get Document2').item.json.body.content[2].table.tableRows[\n            $('Get Document2').item.json.body.content[2].table.tableRows.length - 6\n          ].tableCells[0].content[0].paragraph.elements[0].startIndex }}\n        },\n        \"text\": \"{{$runIndex + 1}}\"\n      }\n    }\n  ]\n}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        3696,
+        944
+      ],
+      "id": "61782f75-e81e-4052-ae6f-121510606a77",
+      "name": "HTTP Request",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "jrOoykKw7mJJuP2m",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $('AI Agent').first().json.output\n// Entferne Markdown-Anfang und Ende, sowie trimme Leerzeichen\nconst cleaned = raw\n  .replace(/```json\\n?/, '')\n  .replace(/```/, '')\n  .trim();\n\nreturn {\n  cleaned\n};\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1840,
+        928
+      ],
+      "id": "4fabb7ea-5582-4a91-b637-0a7d37e36bdb",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "documentURL": "={{ $items(\"Get Document\")[0].json.documentId }}",
+        "simple": false
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        3008,
+        944
+      ],
+      "id": "8b24400d-753e-423d-9750-b3a87a75773d",
+      "name": "Get Document3",
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "AJkXhfOA4czG9AXW",
+          "name": "Google Docs account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        2976,
+        752
+      ],
+      "id": "5e0ad79d-9b65-4cd7-982b-da6e33687cc2",
+      "name": "Aggregate1"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "fileId": {
+          "__rl": true,
+          "value": "1xC4EI4iTaTJR1LIviFIgbheojEQS-mma",
+          "mode": "list",
+          "cachedResultName": "Angebot Test1.docx",
+          "cachedResultUrl": "https://docs.google.com/document/d/1xC4EI4iTaTJR1LIviFIgbheojEQS-mma/edit?usp=drivesdk&ouid=117467801332413846216&rtpof=true&sd=true"
+        },
+        "newUpdatedFileName": "Angebot",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1168,
+        928
+      ],
+      "id": "e12dc716-de5b-48c2-98a5-d4aaff054399",
+      "name": "Update file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "jrOoykKw7mJJuP2m",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "={{ $items(\"Get Document\")[0].json.documentId }}\n",
+          "mode": "id"
+        },
+        "options": {
+          "googleFileConversion": {
+            "conversion": {
+              "docsToFormat": "application/pdf"
+            }
+          },
+          "fileName": "Angebot.pdf"
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        3456,
+        736
+      ],
+      "id": "35ed2b1a-aad9-450b-8e17-262e6878fd89",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "jrOoykKw7mJJuP2m",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "gpt-4o-mini"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.2,
+      "position": [
+        832,
+        1152
+      ],
+      "id": "85db8ed5-241c-45bc-8d23-35f9c03b00e5",
+      "name": "OpenAI Chat Model",
+      "credentials": {
+        "openAiApi": {
+          "id": "k3iFEjoWomM3j55O",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Receive Message').item.json.channel_post.chat.id }}"
+      },
+      "id": "a07f3be0-cd84-4b8f-bff8-1701092f78c5",
+      "name": "Postgres Chat Memory",
+      "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
+      "position": [
+        960,
+        1152
+      ],
+      "typeVersion": 1.3,
+      "credentials": {
+        "postgres": {
+          "id": "9ZKwSrDpj3PHs3xh",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message_join }}",
+        "options": {
+          "systemMessage": "=🏗️ System Prompt: Angebots-Generator Bau/Handwerk (Vollständige, robuste Version)\n🎯 Rolle\n\nDu bist ein erfahrener Bauleiter / Handwerksmeister (Fliesen, Bodenleger, Maler, Trockenbau, Sanitär, Grundkenntnisse Elektro) mit mindestens 15 Jahren Praxiserfahrung in Deutschland.\nDeine Aufgabe: belastbare, verschickbare Angebote erstellen – ausschließlich als JSON, ohne Fließtext.\n\n🧩 Aufgabe\n\nErzeuge aus einer textlichen Projektbeschreibung (plus optionalen Metadaten und Preislisten aus dem Workflow) ausschließlich ein vollständiges JSON-Dokument.\n\nKeine Erklärungen, keine Kommentare, keine Formatierungen außerhalb von JSON.\n\nDas Schema ist strikt einzuhalten (alle Schlüssel müssen existieren; fehlende Inhalte als leerer String „“).\n\nPositionen sind Pflicht:\npositionen muss immer im JSON enthalten sein. Sobald aus Beschreibung oder Preislisten Leistungen ableitbar sind, müssen Positionen erzeugt und ausgegeben werden – niemals weglassen.\nNur wenn absolut nichts ableitbar ist, darf positionen: [] sein.\n\n📥 Eingabedaten aus Workflow (können leer sein)\n{\n  \"preise_handwerk\": [ { \"Gewerk\": \"\", \"Bezeichnung\": \"\", \"Einheit\": \"\", \"Preis\": 0 } ],\n  \"preise_material\": [ { \"Artikel\": \"\", \"Bezeichnung\": \"\", \"Einheit\": \"\", \"Preis\": 0 } ],\n  \"mwst\": 0.19,\n  \"währung\": \"EUR\"\n}\n\n\npreise_handwerk: Tätigkeiten / Arbeitsleistungen\npreise_material: Materialpreise\nmwst: Mehrwertsteuersatz (Standard 0.19)\nwährung: „EUR“ (Standard)\n\nWenn Felder fehlen, behandle sie so, als wären sie leere Arrays bzw. Standardwerte.\n\n💠 Feste und nicht veränderbare Platzhalter\n\nFolgende Platzhalter sind verfügbar und dürfen bei der Ausgabe niemals verändert, kleingeschrieben oder umbenannt werden.\nSie müssen exakt in dieser Schreibweise beibehalten werden (keine Varianten, keine Synonyme, keine Umwandlungen):\n\n[Auftragnehmer Firma]\n[Auftragnehmer Name]\n[Auftragnehmer Straße]\n[Auftragnehmer HausNr]\n[Auftragnehmer PLZ]\n[Auftragnehmer Stadt]\n[KundenNr]\n[AnsprechpartnerAuftragnehmer]\n[AngebotNr]\n[Anfragedatum]\n[Bauvorhaben_Straße]\n[BAUVORHABEN HAUSNR]\n[BAUVORHABEN PLZ]\n[BAUVORHABEN ORT]\n[Anrede]\n\n\nDiese Platzhalter dürfen nur exakt so ausgegeben oder ersetzt werden – keine Formatänderungen, keine Kleinschreibung, keine Anpassungen.\n\n⚠️ Wichtig:\nAuch in der JSON-Ausgabe selbst müssen alle Feldnamen exakt so geschrieben werden, wie hier angegeben.\nBeispiel: \"Anrede\" → nicht \"anrede\" oder \"anRede\".\nGroß- / Kleinschreibung und Leerzeichen sind strikt beizubehalten.\n\n🧾 JSON-Schema (Pflichtfelder & feste Schlüssel)\n\nKopfbereich – immer vorhanden (leere Strings, wenn unbekannt):\n\n{\n  \"projektbeschreibung\": \"\",\n  \"Belegdatum\": \"\",\n  \"Anfragedatum\": \"\",\n  \"Anrede\": \"\",\n  \"Auftragnehmer Firma\": \"\",\n  \"Auftragnehmer Name\": \"\",\n  \"Auftragnehmer Straße\": \"\",\n  \"Auftragnehmer HausNr\": \"\",\n  \"Auftragnehmer PLZ\": \"\",\n  \"Auftragnehmer Stadt\": \"\",\n  \"Ansprechpartner Auftragnehmer\": \"\",\n  \"Auftraggeber Firma\": \"\",\n  \"Auftraggeber Name\": \"\",\n  \"Auftraggeber Straße\": \"\",\n  \"Auftraggeber HausNr\": \"\",\n  \"Auftraggeber PLZ\": \"\",\n  \"Auftraggeber Stadt\": \"\",\n  \"Auftraggeber Ansprechpartner\": \"\",\n  \"Auftraggeber Ansprechpartner Vorname\": \"\",\n  \"Auftraggeber Ansprechpartner Nachname\": \"\",\n  \"Auftraggeber Ansprechpartner Titel\": \"\",\n  \"Auftraggeber Ansprechpartner Geschlecht\": \"m | w | d | unbekannt\",\n  \"Bauvorhaben Bezeichnung\": \"\",\n  \"Bauvorhaben Straße\": \"\",\n  \"Bauvorhaben HausNr\": \"\",\n  \"Bauvorhaben PLZ\": \"\",\n  \"Bauvorhaben Ort\": \"\"\n}\n\n\nPositionen – MUSS immer vorhanden sein:\n\n\"positionen\": [\n  { \"bezeichnung\": \"\", \"menge\": 0, \"einheit\": \"\", \"einzelpreis\": 0.00, \"gesamtpreis\": 0.00 }\n]\n\n\nGesamtsumme – immer vorhanden:\n\n\"gesamtpreis\": { \"netto\": 0.00, \"brutto\": 0.00 }\n\n📐 Formatregeln für JSON\n\nZahlen als JSON-Zahlen (kein String)\n\nDezimalpunkt, immer 2 Dezimalstellen (kaufmännisch runden)\n\nAlle Felder des Schemas müssen existieren (auch wenn leer)\n\nFeldnamen exakt beibehalten – keine Abweichungen in Groß/Kleinschreibung\n\n„Auftraggeber Firma“ und „Auftraggeber Name“ niemals verändern\n\n📋 Regeln für „positionen“ (harte Pflicht)\n\npositionen muss existieren\n\nSobald Leistungen aus Beschreibung / Preislisten ableitbar sind → mindestens eine Position ausgeben\n\nKeine Sammelposten\n\nArbeitszeit, Materialien, Maschinen / Mieten, Entsorgung getrennt\n\nKategorien zu Beginn jeder Bezeichnung in eckigen Klammern:\n[Vorarbeiten], [Entsorgung], [Untergrundvorbereitung], [Fliesenleger], [Sanitär], [Elektro], [Oberflächen], [Hilfsmittel/Maschinen], [Material], [Externe Dienstleistung]\n\nAnnahmen immer in der Bezeichnung markieren: (Annahme: …)\n\nmenge: Zahl (kein Text)\n\neinheit: z. B. m², lfm, Stück, Std, Tag (nur „Pauschal“, wenn fachlich zwingend)\n\neinzelpreis, gesamtpreis: Zahlen mit 2 Dezimalstellen\n\ngesamtpreis = menge × einzelpreis (vor Summenbildung runden)\n\n💰 Preis-Matching (Priorität & Heuristik)\n\npreise_handwerk\n\npreise_material\n\nRichtwerte (siehe unten)\n\nMatching case-insensitive & semantisch ähnlich:\n„Fliesenleger“ ≈ „Fliesenlegerarbeiten“, „Verlegung Fliesen“ etc.\n\nEinheit aus Preislisten übernehmen; fehlt sie, fachlich korrekte Einheit annehmen und (Annahme: Einheit …) notieren.\nKein exakter Treffer → Richtwert verwenden und (Annahme: Preis gemäß Richtwert) notieren.\nMehrdeutig → bestpassenden Eintrag wählen; Unsicherheit als (Annahme: …) dokumentieren.\nWährung immer „EUR“ (Zahlen bleiben reine JSON-Zahlen, ohne „€“).\n\n📐 Rechen- & Summenregeln\n\nPro Position: gesamtpreis = menge × einzelpreis, 2 Dezimalstellen\n\nNetto = Summe aller Positions-Gesamtpreise\n\nMwSt = Netto × mwst (intern berechnen, aber nur Netto / Brutto ausgeben)\n\nBrutto = Netto + MwSt\n\nBei leeren Positionen: Netto = 0.00, Brutto = 0.00\n\n🧱 Wichtige Vorgaben\n\n„Auftraggeber Firma“ und „Auftraggeber Name“ niemals verändern\n\nMaterialien immer als eigene [Material]-Positionen\n\nMaschinen / Mieten als [Hilfsmittel/Maschinen]\n\nEntsorgung nach Materialarten trennen\n\nArbeits- vs. Materialkosten trennen (keine Mischpositionen)\n\nDoppelte Positionen vermeiden (konsolidieren, aber keine Sammelposten)\n\nUnklare Angaben → fachlich sinnvolle Annahmen treffen und klar kennzeichnen (Annahme: …)\n\n💬 Anrede-Regeln (inkl. Titel, Geschlecht & Fallback)\n\n\"Anrede\" muss immer gefüllt werden.\n\nWenn \"Auftraggeber Ansprechpartner Geschlecht\":\n\nm → „Sehr geehrter Herr {Titel optional + Nachname oder Name}“\n\nw → „Sehr geehrte Frau {Titel optional + Nachname oder Name}“\n\nd / unbekannt → „Guten Tag {Titel optional + Nachname oder Firma}“\n\nWenn im Ansprechpartner-Text „Herr“ / „Frau“ vorkommt → entsprechend verwenden.\n\nNamens-Heuristik:\n\nweibliche Vornamen → „Sehr geehrte Frau …“\n\nmännliche Vornamen → „Sehr geehrter Herr …“\n\nsonst → neutral: „Sehr geehrte Damen und Herren“\n\nTitel verwenden, wenn vorhanden (keine Titel erfinden): z. B. „Sehr geehrter Herr Dr. Alija“.\n\n🏠 Bauvorhaben-Regeln\n\nWenn in der Anfrage ein Bauvorhaben / Objekt erwähnt ist, fülle:\n\"Bauvorhaben Bezeichnung\", \"Bauvorhaben Straße\", \"Bauvorhaben HausNr\", \"Bauvorhaben PLZ\", \"Bauvorhaben Ort\".\nWenn kein Bauvorhaben genannt → Felder leer, aber vorhanden.\n\n📊 Richtwerte (Deutschland 2025, falls kein Treffer)\nTätigkeit / Material\tRichtwert (€)\nFliesenleger\t60.00 €/Std\nBodenleger\t45.00 €/Std\nMaler\t40.00 €/Std\nTrockenbauer\t50.00 €/Std\nSanitärmonteur\t65.00 €/Std\nElektriker\t65.00 €/Std\nHilfsarbeiter\t32.00 €/Std\nContainer 3 m³\t180.00\nFliesenkleber 25 kg\t25.00\nFugenmörtel 5 kg\t12.00\nSilikon 310 ml\t8.00\nGrundierung 5 l\t35.00\nAbdeckfolie 25 m²\t12.00\nPVC-Boden Material\t15.00 – 20.00 €/m² (Annahme, falls unbekannt)\n✅ Validierung vor Ausgabe (Pflicht-Checkliste)\n\nSchema vollständig? (alle Schlüssel vorhanden; leere Strings statt fehlender Inhalte)\n\npositionen vorhanden? (wenn Leistungen ableitbar → mind. 1)\n\nKategorien korrekt ([Kategorie] am Anfang)?\n\nRechenweg korrekt (gesamtpreis, Netto, Brutto, 2 Dezimalstellen)?\n\nArbeits/Material/Maschinen/Entsorgung getrennt?\n\nAnnahmen markiert (Annahme: …)?\n\n„Auftraggeber Firma/Name“ unverändert?\n\nNur gültiges JSON ausgeben (keine Texte außerhalb)"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.9,
+      "position": [
+        816,
+        928
+      ],
+      "id": "4a6474fb-1989-4c47-a555-a65813fc1f16",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Receive Message').item.json.message.chat.id }}",
+        "text": "=Möchtest du noch etwas an den Angebot verändern? Falls ja, dann schreibe einfach in den Chat was du ändern willst. Schreibe \"ende\", falls du die Unterhaltung beenden willst.",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        -512,
+        416
+      ],
+      "id": "d0169e40-ed4f-4612-9c6c-d35cb1723521",
+      "name": "Send a text message",
+      "webhookId": "859f1aab-74e7-4f95-8197-7fdd85cd98a7",
+      "credentials": {
+        "telegramApi": {
+          "id": "tjXQPjveoH6hbGpL",
+          "name": "julis_angebot_bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "SiclwNnt6wJUiaum",
+          "mode": "list",
+          "cachedResultName": "Multimodal Channel"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "text": "={{ $json.channel_post.text }}",
+            "message_chat_id_toString": "={{ $json.channel_post.chat.id.toString() }}",
+            "message_chat_id": "={{ $json.channel_post.chat.id }}",
+            "message_from_id": "={{ $json.channel_post.sender_chat.id }}",
+            "message_message_id": "={{ $json.channel_post.message_id }}",
+            "audio": "={{ $json.channel_post.voice.file_id }}",
+            "photo": "={{ $json.channel_post.photo[0].file_id }}",
+            "document": "={{ $json.channel_post.document.file_name }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "message_message_id",
+              "displayName": "message_message_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "message_from_id",
+              "displayName": "message_from_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "message_chat_id",
+              "displayName": "message_chat_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "message_chat_id_toString",
+              "displayName": "message_chat_id_toString",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "text",
+              "displayName": "text",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "audio",
+              "displayName": "audio",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "document",
+              "displayName": "document",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "photo",
+              "displayName": "photo",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        -192,
+        976
+      ],
+      "id": "861ba9de-d298-427c-9cc7-37b4bb372609",
+      "name": "Execute Workflow"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "channel_post"
+        ],
+        "additionalFields": {
+          "download": true
+        }
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        -416,
+        992
+      ],
+      "id": "c8ee3b18-d526-449e-bede-a7862021f3e5",
+      "name": "Receive Message",
+      "webhookId": "a5413a1d-0b00-4e0f-add4-5114a6c68458",
+      "credentials": {
+        "telegramApi": {
+          "id": "tjXQPjveoH6hbGpL",
+          "name": "julis_angebot_bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "sendDocument",
+        "chatId": "={{ $items(\"Receive Message\")[0].json.channel_post.chat.id }}\n",
+        "binaryData": true,
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        3680,
+        736
+      ],
+      "id": "2f19fd45-b913-4e19-ac00-3a4c60db61f5",
+      "name": "Send a document",
+      "webhookId": "6dc19070-b827-4199-8173-866025ea8c86",
+      "credentials": {
+        "telegramApi": {
+          "id": "tjXQPjveoH6hbGpL",
+          "name": "julis_angebot_bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "=={{ {\n  message_join: ($items(\"Execute Workflow\")[0] ?? { json: {} }).json[\"message_join\"],\n  preise_material: ($items(\"Material\") ?? []).map(i => i.json),\n  preise_handwerk: ($items(\"Handwerker\") ?? []).map(i => i.json),\n  mwst: 0.19,\n  währung: \"EUR\"\n} }}\n",
+        "includeOtherFields": "=",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        592,
+        960
+      ],
+      "id": "0ad7a8e6-59db-42e2-b22f-e937c2231ccd",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1QmwgdSO9S-uGUm6SkF3DGxS8T5oKi9OOsWh5yUETfKc/edit?usp=sharing",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Material 1.0",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QmwgdSO9S-uGUm6SkF3DGxS8T5oKi9OOsWh5yUETfKc/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        16,
+        848
+      ],
+      "id": "d4345d0a-6400-4ec1-bacc-dab73e6286b2",
+      "name": "Material",
+      "credentials": {
+        "googleApi": {
+          "id": "nzzC1W1N4EWRWaZU",
+          "name": "Google Dominik"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1QmwgdSO9S-uGUm6SkF3DGxS8T5oKi9OOsWh5yUETfKc/edit?usp=sharing",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 515563784,
+          "mode": "list",
+          "cachedResultName": "Stundenstätze",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1QmwgdSO9S-uGUm6SkF3DGxS8T5oKi9OOsWh5yUETfKc/edit#gid=515563784"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        16,
+        1056
+      ],
+      "id": "b3043f86-1e53-4f80-a12e-90137f30c7ff",
+      "name": "Handwerker",
+      "credentials": {
+        "googleApi": {
+          "id": "nzzC1W1N4EWRWaZU",
+          "name": "Google Dominik"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        320,
+        960
+      ],
+      "id": "6dad3130-a9c2-4d57-bdef-b62384da2def",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Node Name: Enforce Exact JSON Schema\n// Zweck: sorgt für exakte Groß-/Kleinschreibung der JSON-Keys\n\nconst src = $json; // JSON-Ergebnis vom LLM oder vorherigem Node\n\n// Alle Keys in der richtigen Schreibweise (laut deinem System Prompt)\nconst CANON = [\n  \"projektbeschreibung\", \"Belegdatum\", \"Anfragedatum\", \"Anrede\",\n  \"Auftragnehmer Firma\", \"Auftragnehmer Name\", \"Auftragnehmer Straße\", \"Auftragnehmer HausNr\",\n  \"Auftragnehmer PLZ\", \"Auftragnehmer Stadt\",\n  \"Ansprechpartner Auftragnehmer\",\n  \"Auftraggeber Firma\", \"Auftraggeber Name\", \"Auftraggeber Straße\", \"Auftraggeber HausNr\",\n  \"Auftraggeber PLZ\", \"Auftraggeber Stadt\",\n  \"Auftraggeber Ansprechpartner\", \"Auftraggeber Ansprechpartner Vorname\",\n  \"Auftraggeber Ansprechpartner Nachname\", \"Auftraggeber Ansprechpartner Titel\",\n  \"Auftraggeber Ansprechpartner Geschlecht\",\n  \"Bauvorhaben Bezeichnung\", \"Bauvorhaben Straße\", \"Bauvorhaben HausNr\",\n  \"Bauvorhaben PLZ\", \"Bauvorhaben Ort\"\n];\n\n// Alle Keys in Kleinbuchstaben als Lookup vorbereiten\nconst lowerMap = {};\nfor (const [k,v] of Object.entries(src)) {\n  lowerMap[k.toLowerCase()] = v;\n}\n\n// Neues JSON-Objekt mit exakter Schreibweise erstellen\nconst out = {};\nfor (const k of CANON) {\n  const v = lowerMap[k.toLowerCase()];\n  out[k] = v !== undefined && v !== null ? v : \"\";\n}\n\n// Pflichtfelder sicherstellen\nout.positionen = Array.isArray(src.positionen) ? src.positionen : [];\nconst gp = src.gesamtpreis || {};\nout.gesamtpreis = {\n  netto: typeof gp.netto === 'number' ? Number(gp.netto.toFixed(2)) : 0.00,\n  brutto: typeof gp.brutto === 'number' ? Number(gp.brutto.toFixed(2)) : 0.00\n};\n\n// Rückgabe für n8n\nreturn [{ json: out }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2272,
+        928
+      ],
+      "id": "6bfad793-f9a7-4afc-a076-e9b13c579dbf",
+      "name": "Canon"
+    }
+  ],
+  "pinData": {
+    "Receive Message": [
+      {
+        "json": {
+          "update_id": 374563144,
+          "channel_post": {
+            "message_id": 18,
+            "sender_chat": {
+              "id": -1002539649272,
+              "title": "Julis Angebots-Agent",
+              "username": "julis_immo_angebot_bot",
+              "type": "channel"
+            },
+            "chat": {
+              "id": -1002539649272,
+              "title": "Julis Angebots-Agent",
+              "username": "julis_immo_angebot_bot",
+              "type": "channel"
+            },
+            "date": 1758031639,
+            "forward_origin": {
+              "type": "user",
+              "sender_user": {
+                "id": 7938800601,
+                "is_bot": false,
+                "first_name": "Julian",
+                "language_code": "de"
+              },
+              "date": 1758017632
+            },
+            "forward_from": {
+              "id": 7938800601,
+              "is_bot": false,
+              "first_name": "Julian",
+              "language_code": "de"
+            },
+            "forward_date": 1758017632,
+            "voice": {
+              "duration": 36,
+              "mime_type": "audio/ogg",
+              "file_id": "AwACAgIAAxkBAAIE52jJOGCpslyEJvkbU6OncAi7DN24AAIOgwAC8txISnd7XpkCh8EJNgQ",
+              "file_unique_id": "AgADDoMAAvLcSEo",
+              "file_size": 144299
+            }
+          }
+        }
+      }
+    ]
+  },
+  "repo_name": "n8n-backup",
+  "repo_owner": "nailujf7",
+  "repo_path": "nailujf7/n8n-backup/",
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "shared": [
+    {
+      "updatedAt": "2025-10-20T20:12:30.776Z",
+      "createdAt": "2025-10-20T20:12:30.776Z",
+      "role": "workflow:owner",
+      "workflowId": "1s4FE9e4R2WbzagX",
+      "projectId": "JNbAc1n2ZHXAEEkk"
+    }
+  ],
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2025-10-29T02:40:00.000Z",
+  "versionId": "52730ea6-a2ef-4f99-bc68-025ea8ccd6fe"
+}
